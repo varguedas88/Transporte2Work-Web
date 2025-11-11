@@ -1,0 +1,11 @@
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de node / python / php temporales
+node_modules/
+__pycache__/
+vendor/
+
+# Configuración local
+.env
