@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Reservas - Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+  <div class="container">
+    <h1>Reservas</h1>
+    <button id="btnNuevo" class="btn btn-success mb-3">Nueva Reserva</button>
+    <table class="table table-striped" id="tablaReservas">
+      <thead><tr><th>ID</th><th>Usuario</th><th>Bus</th><th>Desde</th><th>Hasta</th><th>Estado</th><th>Acciones</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalReserva" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="formReserva">
+          <div class="modal-header"><h5 class="modal-title">Reserva</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+          <div class="modal-body">
+            <input type="hidden" id="resId">
+            <div class="mb-3"><label>Usuario (ID)</label><input id="usuario_id" class="form-control" required></div>
+            <div class="mb-3"><label>Bus (ID)</label><input id="bus_id" class="form-control" required></div>
+            <div class="mb-3"><label>Fecha inicio</label><input id="fecha_inicio" type="date" class="form-control" required></div>
+            <div class="mb-3"><label>Fecha fin</label><input id="fecha_fin" type="date" class="form-control"></div>
+            <div class="mb-3"><label>Estado</label>
+              <select id="estado" class="form-control">
+                <option value="en curso">En curso</option>
+                <option value="finalizado">Finalizado</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const modalRes = new bootstrap.Modal(document.getElementById('modalReserva'));
+const apiBase = '/admin';
+
+async function fetchReservas(){
+  const res = await fetch(apiBase + '/reservas');
+  const data = await res.json();
+  const tbody = document.querySelector('#tablaReservas tbody');
+  tbody.innerHTML = '';
+  data.forEach(r => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${r.id}</td><td>${r.usuario}</td><td>${r.bus}</td><td>${r.fecha_inicio}</td><td>${r.fecha_fin ?? ''}</td><td>${r.estado}</td>
+      <td>
+        <button class="btn btn-sm btn-primary btn-edit" data-id="${r.id}">Editar</button>
+        <button class="btn btn-sm btn-danger btn-del" data-id="${r.id}">Eliminar</button>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+  document.querySelectorAll('.btn-edit').forEach(b => b.onclick = editarReserva);
+  document.querySelectorAll('.btn-del').forEach(b => b.onclick = eliminarReserva);
+}
+
+document.getElementById('btnNuevo').onclick = () => {
+  document.getElementById('resId').value='';
+  document.getElementById('formReserva').reset();
+  modalRes.show();
+}
+
+document.getElementById('formReserva').onsubmit = async (e) => {
+  e.preventDefault();
+  const id = document.getElementById('resId').value;
+  const payload = {
+    usuario_id: parseInt(document.getElementById('usuario_id').value),
+    bus_id: parseInt(document.getElementById('bus_id').value),
+    fecha_inicio: document.getElementById('fecha_inicio').value,
+    fecha_fin: document.getElementById('fecha_fin').value || null,
+    estado: document.getElementById('estado').value
+  };
+  if(id){
+    await fetch(`${apiBase}/reservas/${id}`, {method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+  } else {
+    await fetch(`${apiBase}/reservas`, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+  }
+  modalRes.hide();
+  fetchReservas();
+}
+
+async function editarReserva(ev){
+  const id = ev.currentTarget.dataset.id;
+  const res = await fetch(`${apiBase}/reservas`);
+  const items = await res.json();
+  const r = items.find(x=>x.id==id);
+  document.getElementById('resId').value = r.id;
+  document.getElementById('usuario_id').value = r.usuario_id || '';
+  document.getElementById('bus_id').value = r.bus_id || '';
+  document.getElementById('fecha_inicio').value = r.fecha_inicio || '';
+  document.getElementById('fecha_fin').value = r.fecha_fin || '';
+  document.getElementById('estado').value = r.estado || 'en curso';
+  modalRes.show();
+}
+
+async function eliminarReserva(ev){
+  if(!confirm('¿Eliminar reserva?')) return;
+  const id = ev.currentTarget.dataset.id;
+  await fetch(`${apiBase}/reservas/${id}`, {method:'DELETE'});
+  fetchReservas();
+}
+
+// carga inicial
+fetchReservas();
+</script>
+</body>
+</html>

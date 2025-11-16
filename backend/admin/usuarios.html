@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Usuarios - Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+  <div class="container">
+    <h1>Usuarios</h1>
+    <button id="btnNuevo" class="btn btn-success mb-3">Nuevo Usuario</button>
+    <table class="table table-striped" id="tablaUsuarios">
+      <thead><tr><th>ID</th><th>Nombre</th><th>Correo</th><th>Rol</th><th>Acciones</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modalUser" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="formUser">
+          <div class="modal-header"><h5 class="modal-title">Usuario</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+          <div class="modal-body">
+            <input type="hidden" id="userId">
+            <div class="mb-3"><label>Nombre</label><input id="nombre" class="form-control" required></div>
+            <div class="mb-3"><label>Correo</label><input id="correo" type="email" class="form-control" required></div>
+            <div class="mb-3"><label>Rol</label>
+              <select id="rol" class="form-control">
+                <option value="usuario">Usuario</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
+            <div class="mb-3"><label>Contraseña</label><input id="contrasena" class="form-control" required></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const modalEl = new bootstrap.Modal(document.getElementById('modalUser'));
+const apiBase = '/admin';
+
+async function fetchUsuarios(){
+  const res = await fetch(apiBase + '/usuarios');
+  const data = await res.json();
+  const tbody = document.querySelector('#tablaUsuarios tbody');
+  tbody.innerHTML = '';
+  data.forEach(u => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${u.id}</td><td>${u.nombre}</td><td>${u.correo}</td><td>${u.rol}</td>
+      <td>
+        <button class="btn btn-sm btn-primary btn-edit" data-id="${u.id}">Editar</button>
+        <button class="btn btn-sm btn-danger btn-del" data-id="${u.id}">Eliminar</button>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+  document.querySelectorAll('.btn-edit').forEach(b => b.onclick = editarUsuario);
+  document.querySelectorAll('.btn-del').forEach(b => b.onclick = eliminarUsuario);
+}
+
+document.getElementById('btnNuevo').onclick = () => {
+  document.getElementById('userId').value='';
+  document.getElementById('formUser').reset();
+  modalEl.show();
+}
+
+document.getElementById('formUser').onsubmit = async (e) => {
+  e.preventDefault();
+  const id = document.getElementById('userId').value;
+  const payload = {
+    nombre: document.getElementById('nombre').value,
+    correo: document.getElementById('correo').value,
+    rol: document.getElementById('rol').value,
+    contrasena: document.getElementById('contrasena').value
+  };
+  if(id){
+    await fetch(`${apiBase}/usuarios/${id}`, {method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+  } else {
+    await fetch(`${apiBase}/usuarios`, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+  }
+  modalEl.hide();
+  fetchUsuarios();
+}
+
+async function editarUsuario(ev){
+  const id = ev.currentTarget.dataset.id;
+  const res = await fetch(`${apiBase}/usuarios`);
+  const users = await res.json();
+  const u = users.find(x=>x.id==id);
+  document.getElementById('userId').value = u.id;
+  document.getElementById('nombre').value = u.nombre;
+  document.getElementById('correo').value = u.correo;
+  document.getElementById('rol').value = u.rol;
+  document.getElementById('contrasena').value = ''; // dejar vacío para forzar cambio si se desea
+  modalEl.show();
+}
+
+async function eliminarUsuario(ev){
+  if(!confirm('¿Eliminar usuario?')) return;
+  const id = ev.currentTarget.dataset.id;
+  await fetch(`${apiBase}/usuarios/${id}`, {method:'DELETE'});
+  fetchUsuarios();
+}
+
+// carga inicial
+fetchUsuarios();
+</script>
+</body>
+</html>
