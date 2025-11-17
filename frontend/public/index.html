@@ -1,20 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2Work Transport Solutions</title><link rel="stylesheet" href="css/style.css"></head>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>2Work Transport Solutions</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
 <body>
-<header><nav class="navbar"><a class="logo" href="index.html">2Work</a>
-<ul class="menu">
-<li><a href="index.html">Inicio</a></li>
-<li><a href="acerca.html">Acerca</a></li>
-<li><a href="servicios.html">Servicios</a></li>
-<li><a href="mapa.html">Mapa</a></li>
-<li><a href="contacto.html">Contáctenos</a></li>
-<li><a href="registro.html">Registro</a></li>
-<li><a href="login.html">Iniciar Sesión</a></li>
-</ul></nav></header>
-<section class="slider"><div class="slides">
-<img src="extras/img/bus1.jpg"><img src="extras/img/bus2.jpg"><img src="extras/img/bus3.jpg"></div></section>
-<section class="info"><h1>Transporte corporativo seguro y eficiente</h1></section>
-<footer><p>© 2025 2Work</p></footer>
-<script src="js/slider.js"></script></body></html>
+  <header class="site-header" role="banner">
+    <nav class="navbar" role="navigation" aria-label="Menú principal">
+      <a class="logo" href="index.html">2Work</a>
+      <button class="nav-toggle" aria-controls="main-menu" aria-expanded="false">☰</button>
+      <ul id="main-menu" class="menu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="acerca.html">Acerca</a></li>
+        <li><a href="servicios.html">Servicios</a></li>
+        <li><a href="mapa.html">Mapa</a></li>
+        <li><a href="contacto.html">Contáctenos</a></li>
+        <li><a href="registro.html">Registro</a></li>
+        <li><a href="login.html">Iniciar sesión</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Slider accesible (imágenes en extras/img/) -->
+    <section class="slider" aria-label="Galería de autobuses">
+      <div class="slides" id="slides">
+        <figure><img src="extras/img/bus1.jpg" alt="Autobús moderno 1"></figure>
+        <figure><img src="extras/img/bus2.jpg" alt="Autobús moderno 2"></figure>
+        <figure><img src="extras/img/bus3.jpg" alt="Flotilla de autobuses"></figure>
+      </div>
+    </section>
+
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title">Transporte corporativo seguro y eficiente</h1>
+      <p>2Work ofrece soluciones de transporte empresarial con seguimiento, comodidad y puntualidad.</p>
+      <p><a class="btn" href="servicios.html">Conoce nuestros servicios</a></p>
+    </section>
+
+    <section class="testimonios" aria-labelledby="testi-title">
+      <h2 id="testi-title">Testimonios</h2>
+      <ul>
+        <li>"El servicio es excelente, siempre puntuales." — Ana R.</li>
+        <li>"Buses cómodos y atención profesional." — Carlos V.</li>
+      </ul>
+    </section>
+
+    <section class="social" aria-labelledby="social-title">
+      <h2 id="social-title">Síguenos</h2>
+      <ul class="social-list">
+        <li><a href="#" aria-label="Facebook de 2Work">Facebook</a></li>
+        <li><a href="#" aria-label="Instagram de 2Work">Instagram</a></li>
+        <li><a href="#" aria-label="LinkedIn de 2Work">LinkedIn</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <p>© 2025 2Work Transport Solutions · <a href="acerca.html">Misión y visión</a></p>
+  </footer>
+
+  <script src="js/slider.js"></script>
+  <script>
+    // Toggle menú (accesible)
+    const toggle = document.querySelector('.nav-toggle');
+    const menu = document.getElementById('main-menu');
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true' || false;
+      toggle.setAttribute('aria-expanded', !expanded);
+      menu.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
