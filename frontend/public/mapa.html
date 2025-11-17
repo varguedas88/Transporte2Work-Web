@@ -1,1 +1,39 @@
-<h1>Mapa</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mapa - 2Work</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>#map { height: 420px; max-width: 1100px; margin: 20px auto; border-radius:8px; }</style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar">
+      <a class="logo" href="index.html">2Work</a>
+    </nav>
+  </header>
+
+  <main class="content">
+    <h1>Ubicación de nuestras oficinas</h1>
+    <div id="map" role="application" aria-label="Mapa con ubicación de 2Work"></div>
+    <p>Marcador aproximado en San José, Costa Rica. Ajustar coordenadas a la ubicación real en el esquema/datos.</p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2025 2Work</p>
+  </footer>
+
+  <script>
+    const lat = 9.935;   // reemplazar por coordenadas reales si las tienen
+    const lng = -84.090;
+    const map = L.map('map').setView([lat, lng], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19
+    }).addTo(map);
+    L.marker([lat, lng]).addTo(map).bindPopup('Oficinas 2Work').openPopup();
+  </script>
+</body>
+</html>
