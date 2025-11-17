@@ -1,1 +1,40 @@
-<h1>Login</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Iniciar sesión - 2Work</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar">
+      <a class="logo" href="index.html">2Work</a>
+    </nav>
+  </header>
+
+  <main class="content">
+    <h1>Iniciar sesión</h1>
+    <form onsubmit="return demoLogin(event)">
+      <label for="user">Identificación</label>
+      <input id="user" type="text" required />
+      <label for="passw">Contraseña</label>
+      <input id="passw" type="password" required />
+      <button type="submit" class="btn">Entrar</button>
+    </form>
+    <p class="note">Integrar autenticación real en backend. Esto es solo demo frontend.</p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2025 2Work</p>
+  </footer>
+
+  <script>
+    function demoLogin(e){
+      e.preventDefault();
+      alert('Demo: login validado (no persiste). Implementar backend para autenticación.');
+      return false;
+    }
+  </script>
+</body>
+</html>
