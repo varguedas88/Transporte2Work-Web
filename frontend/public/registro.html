@@ -1,1 +1,62 @@
-<h1>Registro</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Registro - 2Work</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar">
+      <a class="logo" href="index.html">2Work</a>
+    </nav>
+  </header>
+
+  <main class="content">
+    <h1>Registro de usuario</h1>
+    <form id="regForm" onsubmit="return validateRegister(event)" novalidate>
+      <label for="idnum">Identificación</label>
+      <input id="idnum" name="idnum" type="text" required />
+
+      <label for="pass">Contraseña</label>
+      <input id="pass" name="pass" type="password" required minlength="6" />
+
+      <label for="nombre">Nombre</label>
+      <input id="nombre" name="nombre" type="text" required />
+
+      <label for="apellido1">Primer apellido</label>
+      <input id="apellido1" name="apellido1" type="text" required />
+
+      <label for="apellido2">Segundo apellido</label>
+      <input id="apellido2" name="apellido2" type="text" />
+
+      <label for="email">Correo</label>
+      <input id="email" name="email" type="email" required />
+
+      <label for="telefono">Teléfono</label>
+      <input id="telefono" name="telefono" type="tel" required />
+
+      <button type="submit" class="btn">Crear cuenta</button>
+    </form>
+    <p class="note">La verificación real y el guardado deben realizarse en backend (base de datos). Aquí solo validamos en cliente.</p>
+  </main>
+
+  <footer class="site-footer">
+    <p>© 2025 2Work</p>
+  </footer>
+
+  <script>
+    function validateRegister(e){
+      e.preventDefault();
+      // validaciones simples
+      const id = document.getElementById('idnum').value.trim();
+      const pass = document.getElementById('pass').value;
+      if(id.length < 4){ alert('Ingrese una identificación válida'); return false; }
+      if(pass.length < 6){ alert('La contraseña debe tener al menos 6 caracteres'); return false; }
+      alert('Registro validado (demo). Integrar con backend para persistir usuarios.');
+      return false;
+    }
+  </script>
+</body>
+</html>
