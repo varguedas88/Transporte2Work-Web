@@ -2,78 +2,138 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>2Work Admin</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #f2f2f2;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh;
+            padding: 20px;
         }
 
         .login-card {
             background: white;
-            padding: 30px;
-            width: 350px;
-            border-radius: 12px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.15);
-        }
-
-        .login-card h2 {
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             text-align: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2575fc;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 15px;
+        }
+
+        .input-group {
             margin-bottom: 20px;
-            color: #333;
+            text-align: left;
         }
 
-        .login-card input {
+        .input-group input {
             width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border 0.3s;
         }
 
-        .login-card button {
+        .input-group input:focus {
+            outline: none;
+            border-color: #2575fc;
+            box-shadow: 0 0 0 3px rgba(37, 117, 252, 0.2);
+        }
+
+        .login-btn {
             width: 100%;
-            padding: 12px;
-            background: #4C8BF5;
+            padding: 14px;
+            background: linear-gradient(to right, #2575fc, #6a11cb);
             color: white;
             border: none;
-            border-radius: 8px;
-            margin-top: 20px;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 16px;
+            transition: opacity 0.3s;
         }
 
-        .login-card button:hover {
-            background: #3a6fd6;
+        .login-btn:hover {
+            opacity: 0.9;
         }
 
         .error {
-            color: red;
-            text-align: center;
-            margin-top: 10px;
+            color: #e74c3c;
+            margin-top: 15px;
+            font-size: 14px;
+            min-height: 20px;
         }
     </style>
 </head>
 <body>
 
 <div class="login-card">
-    <h2>Admin Login</h2>
+    <div class="logo">2Work</div>
+    <p class="subtitle">Acceso de administrador</p>
 
-    <form method="POST">
-        <input type="email" name="correo" placeholder="Correo" required>
-        <input type="password" name="contrasena" placeholder="Contraseña" required>
-        <button type="submit">Ingresar</button>
+    <form id="loginForm">
+        <div class="input-group">
+            <input type="email" id="correo" placeholder="Correo electrónico" required autocomplete="username">
+        </div>
+        <div class="input-group">
+            <input type="password" id="contrasena" placeholder="Contraseña" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="login-btn">Iniciar sesión</button>
     </form>
 
-    {% if error %}
-        <p class="error">{{ error }}</p>
-    {% endif %}
+    <p class="error" id="errorMsg"></p>
 </div>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const correo = document.getElementById('correo').value;
+    const contrasena = document.getElementById('contrasena').value;
+    const errorMsg = document.getElementById('errorMsg');
+
+    try {
+        const res = await fetch('/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ correo, contrasena })
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+            window.location.href = '/admin/dashboard.html';
+        } else {
+            errorMsg.textContent = data.error || 'Error al iniciar sesión';
+        }
+    } catch (err) {
+        errorMsg.textContent = 'No se pudo conectar al servidor';
+    }
+});
+</script>
 
 </body>
 </html>

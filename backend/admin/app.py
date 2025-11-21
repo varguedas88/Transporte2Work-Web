@@ -14,9 +14,9 @@ def get_db():
 
 
 app = Flask(__name__, static_folder='.')
-app.secret_key = "una_clave_super_secreta_y_larga_que_nadie_mas_sepa_123"  # <-- AGREGA ESTO
+app.secret_key = "una_clave_super_secreta_y_larga_que_nadie_mas_sepa_123"
 
-# ---- APIs Usuarios ----
+# APIs Usuarios
 @app.route("/admin/usuarios", methods=["GET"])
 def listar_usuarios():
     db = get_db()
@@ -58,7 +58,7 @@ def eliminar_usuario(id):
     db.close()
     return jsonify({"status":"ok"})
 
-# ---- APIs Buses ----
+# APIs Buses
 @app.route("/admin/buses", methods=["GET"])
 def listar_buses():
     try:
@@ -112,7 +112,7 @@ def eliminar_bus(id):
     db.close()
     return jsonify({"status":"ok"})
 
-# ---- APIs Choferes ----
+# APIs Choferes
 @app.route("/admin/choferes", methods=["GET"])
 def listar_choferes():
     try:
@@ -175,7 +175,7 @@ def eliminar_chofer(id):
     return jsonify({"status":"ok"})
 
 
-# ---- APIs Reservas ----
+# APIs Reservas
 @app.route("/admin/reservas", methods=["GET"])
 def listar_reservas():
     try:
@@ -242,6 +242,11 @@ def login():
 def admin_check():
     return jsonify({"ok": session.get("admin_logged", False)})
 
+@app.route("/logout", methods=["POST"])
+def logout():
+    session.pop("admin_logged", None)
+    return jsonify({"status": "ok"})
+
 
 @app.route("/admin/reservas/<int:id>", methods=["PUT"])
 def actualizar_reserva(id):
@@ -263,7 +268,7 @@ def eliminar_reserva_api(id):
     db.close()
     return jsonify({"status":"ok"})
 
-# ---- Servir HTML estático (dashboard + páginas CRUD) ----
+# Servir HTML estático
 @app.route("/admin/dashboard.html")
 def serve_dashboard():
     if not session.get("admin_logged"):
@@ -288,6 +293,6 @@ def serve_reservas_html():
     return send_from_directory('.', 'reservas.html')
 
 if __name__ == "__main__":
-    print("Iniciando servidor Flask en http://127.0.0.1:5000")
+    print("Iniciando servidor Flask en http://localhost:5000/admin/dashboard.html")
     app.run(debug=True)
 

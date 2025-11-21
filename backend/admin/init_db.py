@@ -6,7 +6,6 @@ DB_PATH = os.path.join(os.path.dirname(__file__), "database.db")
 conn = sqlite3.connect(DB_PATH)
 cur = conn.cursor()
 
-# --- Tabla usuarios ---
 cur.execute("""
 CREATE TABLE IF NOT EXISTS usuarios (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -17,7 +16,6 @@ CREATE TABLE IF NOT EXISTS usuarios (
 );
 """)
 
-# --- Tabla choferes ---
 cur.execute("""
 CREATE TABLE IF NOT EXISTS choferes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -29,7 +27,6 @@ CREATE TABLE IF NOT EXISTS choferes (
 );
 """)
 
-# --- Tabla buses ---
 cur.execute("""
 CREATE TABLE IF NOT EXISTS buses (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -42,7 +39,6 @@ CREATE TABLE IF NOT EXISTS buses (
 );
 """)
 
-# --- Tabla reservas ---
 cur.execute("""
 CREATE TABLE IF NOT EXISTS reservas (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

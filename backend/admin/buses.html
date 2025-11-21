@@ -4,16 +4,138 @@
   <meta charset="utf-8">
   <title>Buses - Admin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap + Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --primary-dark: #3a56d4;
+      --secondary: #7209b7;
+      --light-bg: #f9fbfd;
+      --card-shadow: 0 4px 15px rgba(67, 97, 238, 0.1);
+    }
+
+    body {
+      background-color: var(--light-bg);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      padding-top: 20px;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .page-title {
+      font-weight: 700;
+      color: #212529;
+      font-size: 1.8rem;
+    }
+
+    .btn-action {
+      background: linear-gradient(to right, var(--secondary), #4361ee);
+      border: none;
+      padding: 0.5rem 1.2rem;
+      font-weight: 600;
+    }
+
+    .btn-action:hover {
+      opacity: 0.9;
+    }
+
+    .table-container {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+    }
+
+    .table th {
+      background-color: #f8f9fa;
+      font-weight: 600;
+      color: #495057;
+    }
+
+    .table td {
+      vertical-align: middle;
+    }
+
+    .btn-sm {
+      padding: 0.25rem 0.6rem;
+      font-size: 0.85rem;
+    }
+
+    /* Modal */
+    .modal-content {
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .modal-header {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .modal-title {
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+
+    .modal-body {
+      padding-top: 1rem;
+    }
+
+    .form-label {
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: #495057;
+    }
+
+    .modal-footer {
+      border-top: none;
+      padding-top: 0;
+      padding-bottom: 1.5rem;
+    }
+
+    .form-control, .form-select {
+      border: 1px solid #ced4da;
+      padding: 0.45rem 0.8rem;
+    }
+
+    .form-control:focus, .form-select:focus {
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+      border-color: var(--primary);
+    }
+  </style>
 </head>
-<body class="p-4">
+<body>
   <div class="container">
-    <h1>Buses</h1>
-    <button id="btnNuevo" class="btn btn-success mb-3">Nuevo Bus</button>
-    <table class="table table-striped" id="tablaBuses">
-      <thead><tr><th>ID</th><th>Placa</th><th>Modelo</th><th>Capacidad</th><th>Costo/km</th><th>Acciones</th></tr></thead>
-      <tbody></tbody>
-    </table>
+    <div class="page-header">
+      <h1 class="page-title">Buses</h1>
+      <button id="btnNuevo" class="btn btn-action">
+        <i class="bi bi-bus-front me-1"></i> Nuevo Bus
+      </button>
+    </div>
+
+    <div class="table-container">
+      <table class="table" id="tablaBuses">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Placa</th>
+            <th>Modelo</th>
+            <th>Capacidad</th>
+            <th>Costo/km</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
   </div>
 
   <!-- Modal -->
@@ -21,161 +143,220 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <form id="formBus">
-          <div class="modal-header"><h5 class="modal-title">Bus</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+          <div class="modal-header">
+            <h5 class="modal-title">Gestionar Bus</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
           <div class="modal-body">
             <input type="hidden" id="busId">
-            <div class="mb-3"><label>Placa</label><input id="placa" class="form-control" required></div>
-            <div class="mb-3"><label>Modelo</label><input id="modelo" class="form-control" required></div>
-            <div class="mb-3"><label>Capacidad</label><input id="capacidad" type="number" class="form-control" required></div>
-            <div class="mb-3"><label>Costo por km</label><input id="costo_km" type="number" step="0.01" class="form-control"></div>
-            <div class="mb-3"><label>Chofer asignado</label><select id="chofer_id" class="form-control" required></select></div>
+            <div class="mb-3">
+              <label class="form-label">Placa</label>
+              <input id="placa" class="form-control" placeholder="Ej: ABC-123" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Modelo</label>
+              <input id="modelo" class="form-control" placeholder="Ej: Mercedes-Benz Citaro" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Capacidad (pasajeros)</label>
+              <input id="capacidad" type="number" min="1" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Costo por km (USD)</label>
+              <input id="costo_km" type="number" step="0.01" min="0" class="form-control" placeholder="0.00">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Chofer asignado</label>
+              <select id="chofer_id" class="form-select" required>
+                <option value="">Seleccione un chofer</option>
+              </select>
+            </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar bus</button>
           </div>
         </form>
       </div>
     </div>
   </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const modalBus = new bootstrap.Modal(document.getElementById('modalBus'));
+      const apiBase = '/admin';
 
-const modalBus = new bootstrap.Modal(document.getElementById('modalBus'));
-const apiBase = '/admin';
+      /* ================================
+         CARGAR LISTA DE CHOFERES
+      ================================ */
+      async function cargarChoferes() {
+        try {
+          const res = await fetch(apiBase + '/choferes');
+          const data = await res.json();
 
-/* ================================
-   CARGAR LISTA DE CHOFERES
-================================ */
-async function cargarChoferes() {
-  const res = await fetch(apiBase + '/choferes');
-  const data = await res.json();
+          const select = document.getElementById('chofer_id');
+          select.innerHTML = '<option value="">Seleccione un chofer</option>';
 
-  const select = document.getElementById('chofer_id');
-  select.innerHTML = '<option value="">Seleccione un chofer</option>';
+          data.forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c.id;
+            opt.textContent = c.nombre;
+            select.appendChild(opt);
+          });
+        } catch (err) {
+          console.error("Error al cargar choferes:", err);
+          alert("No se pudieron cargar los choferes. Verifica la conexión.");
+        }
+      }
 
-  data.forEach(c => {
-    const opt = document.createElement('option');
-    opt.value = c.id;
-    opt.textContent = c.nombre;
-    select.appendChild(opt);
-  });
-}
+      /* ================================
+         LISTAR BUSES EN TABLA
+      ================================ */
+      async function fetchBuses(){
+        try {
+          const res = await fetch(apiBase + '/buses');
+          const data = await res.json();
+          const tbody = document.querySelector('#tablaBuses tbody');
+          tbody.innerHTML = '';
 
-/* ================================
-   LISTAR BUSES EN TABLA
-================================ */
-async function fetchBuses(){
-  const res = await fetch(apiBase + '/buses');
-  const data = await res.json();
-  const tbody = document.querySelector('#tablaBuses tbody');
-  tbody.innerHTML = '';
+          if (data.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4">No hay buses registrados</td></tr>`;
+            return;
+          }
 
-  data.forEach(b => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${b.id}</td>
-      <td>${b.placa}</td>
-      <td>${b.modelo}</td>
-      <td>${b.capacidad}</td>
-      <td>${b.costo_km ?? ''}</td>
-      <td>
-          <button class="btn btn-sm btn-primary btn-edit" data-id="${b.id}">Editar</button>
-          <button class="btn btn-sm btn-danger btn-del" data-id="${b.id}">Eliminar</button>
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
+          data.forEach(b => {
+            const tr = document.createElement('tr');
+            const costo = b.costo_km ? `$${b.costo_km.toFixed(2)}` : '—';
+            tr.innerHTML = `
+              <td>${b.id}</td>
+              <td><strong>${b.placa}</strong></td>
+              <td>${b.modelo}</td>
+              <td>${b.capacidad} pasajeros</td>
+              <td>${costo}</td>
+              <td class="text-center">
+                <button class="btn btn-sm btn-outline-primary me-1 btn-edit" data-id="${b.id}">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-sm btn-outline-danger btn-del" data-id="${b.id}">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            `;
+            tbody.appendChild(tr);
+          });
 
-  document.querySelectorAll('.btn-edit').forEach(b => b.onclick = editarBus);
-  document.querySelectorAll('.btn-del').forEach(b => b.onclick = eliminarBus);
-}
+          document.querySelectorAll('.btn-edit').forEach(b => b.onclick = editarBus);
+          document.querySelectorAll('.btn-del').forEach(b => b.onclick = eliminarBus);
+        } catch (err) {
+          console.error("Error al cargar buses:", err);
+          document.querySelector('#tablaBuses tbody').innerHTML = 
+            `<tr><td colspan="6" class="text-center py-4 text-danger">Error al cargar los datos</td></tr>`;
+        }
+      }
 
-/* ================================
-   NUEVO BUS
-================================ */
-document.getElementById('btnNuevo').onclick = async () => {
-  await cargarChoferes();
-  document.getElementById('formBus').reset();
-  document.getElementById('busId').value='';
-  modalBus.show();
-};
+      /* ================================
+         NUEVO BUS
+      ================================ */
+      document.getElementById('btnNuevo').onclick = async () => {
+        await cargarChoferes();
+        document.getElementById('formBus').reset();
+        document.getElementById('busId').value = '';
+        modalBus.show();
+      };
 
-/* ================================
-   GUARDAR BUS
-================================ */
-document.getElementById('formBus').onsubmit = async (e) => {
-  e.preventDefault();
+      /* ================================
+         GUARDAR BUS
+      ================================ */
+      document.getElementById('formBus').onsubmit = async (e) => {
+        e.preventDefault();
 
-  const id = document.getElementById('busId').value;
+        const id = document.getElementById('busId').value;
+        const capacidad = parseInt(document.getElementById('capacidad').value);
+        const costo_km = document.getElementById('costo_km').value;
+        const chofer_id = document.getElementById('chofer_id').value;
 
-  const payload = {
-    placa: document.getElementById('placa').value,
-    modelo: document.getElementById('modelo').value,
-    capacidad: parseInt(document.getElementById('capacidad').value),
-    costo_km: parseFloat(document.getElementById('costo_km').value) || 0,
-    chofer_id: parseInt(document.getElementById('chofer_id').value)
-  };
+        if (!chofer_id) {
+          alert("Por favor seleccione un chofer.");
+          return;
+        }
 
-  if(id){
-    await fetch(`${apiBase}/buses/${id}`, {
-      method:'PUT',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(payload)
+        const payload = {
+          placa: document.getElementById('placa').value.trim(),
+          modelo: document.getElementById('modelo').value.trim(),
+          capacidad: capacidad,
+          costo_km: costo_km ? parseFloat(costo_km) : 0,
+          chofer_id: parseInt(chofer_id)
+        };
+
+        try {
+          if (id) {
+            await fetch(`${apiBase}/buses/${id}`, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+          } else {
+            await fetch(`${apiBase}/buses`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+          }
+
+          modalBus.hide();
+          fetchBuses();
+        } catch (err) {
+          alert('Error al guardar el bus. Por favor intente nuevamente.');
+        }
+      };
+
+      /* ================================
+         EDITAR BUS
+      ================================ */
+      async function editarBus(ev){
+        const id = ev.currentTarget.dataset.id;
+        try {
+          const res = await fetch(apiBase + '/buses');
+          const buses = await res.json();
+          const b = buses.find(x => x.id == id);
+
+          if (!b) return;
+
+          await cargarChoferes();
+
+          document.getElementById('busId').value = b.id;
+          document.getElementById('placa').value = b.placa || '';
+          document.getElementById('modelo').value = b.modelo || '';
+          document.getElementById('capacidad').value = b.capacidad || '';
+          document.getElementById('costo_km').value = b.costo_km || '';
+          document.getElementById('chofer_id').value = b.chofer_id || '';
+
+          modalBus.show();
+        } catch (err) {
+          alert('Error al cargar los datos del bus.');
+        }
+      }
+
+      /* ================================
+         ELIMINAR BUS
+      ================================ */
+      async function eliminarBus(ev){
+        if (!confirm('¿Eliminar este bus? Esta acción no se puede deshacer.')) return;
+        const id = ev.currentTarget.dataset.id;
+        try {
+          await fetch(`${apiBase}/buses/${id}`, { method: 'DELETE' });
+          fetchBuses();
+        } catch (err) {
+          alert('Error al eliminar el bus.');
+        }
+      }
+
+      /* ================================
+         CARGA INICIAL
+      ================================ */
+      fetchBuses();
     });
-  } else {
-    await fetch(`${apiBase}/buses`, {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(payload)
-    });
-  }
-
-  modalBus.hide();
-  fetchBuses();
-};
-
-/* ================================
-   EDITAR BUS
-================================ */
-async function editarBus(ev){
-  const id = ev.currentTarget.dataset.id;
-
-  const res = await fetch(apiBase + '/buses');
-  const buses = await res.json();
-  const b = buses.find(x => x.id == id);
-
-  await cargarChoferes();
-
-  document.getElementById('busId').value = b.id;
-  document.getElementById('placa').value = b.placa;
-  document.getElementById('modelo').value = b.modelo;
-  document.getElementById('capacidad').value = b.capacidad;
-  document.getElementById('costo_km').value = b.costo_km ?? "";
-  document.getElementById('chofer_id').value = b.chofer_id ?? "";
-
-  modalBus.show();
-}
-
-/* ================================
-   ELIMINAR BUS
-================================ */
-async function eliminarBus(ev){
-  if(!confirm('¿Eliminar bus?')) return;
-  const id = ev.currentTarget.dataset.id;
-  await fetch(`${apiBase}/buses/${id}`, {method:'DELETE'});
-  fetchBuses();
-}
-
-/* ================================
-   CARGA INICIAL
-================================ */
-fetchBuses();
-
-});
-</script>
+  </script>
 </body>
 </html>
-
