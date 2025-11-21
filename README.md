@@ -1,5 +1,7 @@
 # Proyecto Transporte 2Work
-Sitio web para la gestión de transporte empresarial.
+Sitio web para la gestión de transporte empresarial. Proyecto del Grupo 1 de programación III.
+
+Fecha de entrega: 2 de diciembre
 
 ## 🔧 Asignación de tareas
 - **Persona 1:** Identidad corporativa + Sección pública (Frontend Public)
