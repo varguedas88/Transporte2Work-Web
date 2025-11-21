@@ -1,5 +1,10 @@
 # Proyecto Transporte 2Work
-Sitio web para la gestión de transporte empresarial.
+Sitio web para la gestión de transporte empresarial. Proyecto del Grupo 1 de programación III.
+
+Fecha de entrega: 2 de diciembre
+
+## 👾 How to Run
+Nuestro proyecto utiliza Flask para acceder y actualizar la base de datos en tiempo real, por lo que es importante correr el archivo app.py (ubicado en /backend/admin/) para iniciar el servidor cuando se utilice las funciones de usuarios o admin.
 
 ## 🔧 Asignación de tareas
 - **Persona 1:** Identidad corporativa + Sección pública (Frontend Public)
