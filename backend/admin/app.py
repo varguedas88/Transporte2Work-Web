@@ -3,14 +3,20 @@ import sqlite3
 import os
 import uuid
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.join(BASE_DIR, '..', '..') 
+FRONTEND_DIR = os.path.join(PROJECT_ROOT, 'frontend', 'public')
+USER_PAGES_DIR = os.path.join(FRONTEND_DIR, 'usuario')
+
 DB_PATH = os.path.join(os.path.dirname(__file__), "database.db")
+
+print(f"Carpeta frontend: {FRONTEND_DIR}")
+print(f"Carpeta usuario: {USER_PAGES_DIR}")
 
 def get_db():
     conn = sqlite3.connect("database.db")
     conn.row_factory = sqlite3.Row
     return conn
-
-#Login 
 
 
 app = Flask(__name__, static_folder='.')
@@ -268,6 +274,112 @@ def eliminar_reserva_api(id):
     db.close()
     return jsonify({"status":"ok"})
 
+# Registro público de usuarios
+@app.route("/registro", methods=["POST"])
+def registro_publico():
+    data = request.json
+    nombre = data.get("nombre")
+    correo = data.get("correo")
+    contrasena = data.get("contrasena")
+
+    if not nombre or not correo or not contrasena:
+        return jsonify({"error": "Todos los campos son obligatorios"}), 400
+
+    # Verificar si el correo ya existe
+    db = get_db()
+    cur = db.execute("SELECT id FROM usuarios WHERE correo = ?", (correo,))
+    if cur.fetchone():
+        db.close()
+        return jsonify({"error": "El correo ya está registrado"}), 400
+
+    # Crear usuario con rol "usuario" (no admin)
+    cur = db.execute(
+        "INSERT INTO usuarios (nombre, correo, contrasena, rol) VALUES (?, ?, ?, ?)",
+        (nombre, correo, contrasena, "usuario")  
+    )
+    db.commit()
+    db.close()
+
+    return jsonify({"status": "ok", "mensaje": "Usuario registrado exitosamente"}), 201
+
+# Login público para usuarios normales
+@app.route("/login-publico", methods=["POST"])
+def login_publico():
+    data = request.json
+    correo = data.get("correo")
+    contrasena = data.get("contrasena")
+
+    if not correo or not contrasena:
+        return jsonify({"error": "Email y contraseña son requeridos"}), 400
+
+    db = get_db()
+    cur = db.execute(
+        "SELECT id, nombre, correo, rol FROM usuarios WHERE correo=? AND contrasena=?",
+        (correo, contrasena)
+    )
+    user = cur.fetchone()
+    db.close()
+
+    if not user:
+        return jsonify({"error": "Credenciales incorrectas"}), 401
+
+    # Guardar sesión para usuario normal (diferente de admin)
+    session['user_id'] = user['id']
+    session['user_name'] = user['nombre']
+    session['user_email'] = user['correo']
+    session['user_role'] = user['rol']
+    session['logged_in'] = True
+
+    return jsonify({
+        "status": "ok",
+        "message": "Login exitoso",
+        "user": {
+            "id": user['id'],
+            "nombre": user['nombre'],
+            "correo": user['correo'],
+            "rol": user['rol']
+        }
+    })
+
+# Verificar sesión de usuario normal
+@app.route("/check-user")
+def check_user_session():
+    if session.get('logged_in'):
+        return jsonify({
+            "logged_in": True,
+            "user": {
+                "id": session.get('user_id'),
+                "nombre": session.get('user_name'),
+                "correo": session.get('user_email'),
+                "rol": session.get('user_role')
+            }
+        })
+    return jsonify({"logged_in": False})
+
+# Logout de usuario normal
+@app.route("/logout-publico", methods=["POST"])
+def logout_publico():
+    # Limpiar solo la sesión de usuario (no la de admin)
+    session.pop('user_id', None)
+    session.pop('user_name', None)
+    session.pop('user_email', None)
+    session.pop('user_role', None)
+    session.pop('logged_in', None)
+    return jsonify({"status": "ok"})
+
+# Servir archivos del frontend
+@app.route('/')
+def serve_index():
+    return send_from_directory(FRONTEND_DIR, 'index.html')
+
+@app.route('/<path:filename>')
+def serve_static(filename):
+    return send_from_directory(FRONTEND_DIR, filename)
+
+@app.route('/usuario/<path:filename>')
+def serve_user_pages(filename):
+    return send_from_directory(USER_PAGES_DIR, filename)
+
 # Servir HTML estático
 @app.route("/admin/dashboard.html")
 def serve_dashboard():
@@ -293,6 +405,6 @@ def serve_reservas_html():
     return send_from_directory('.', 'reservas.html')
 
 if __name__ == "__main__":
-    print("Iniciando servidor Flask en http://localhost:5000/admin/dashboard.html")
+    print("Iniciando servidor Flask en http://localhost:5000/")
     app.run(debug=True)
 
