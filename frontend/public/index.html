@@ -4,361 +4,85 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>2Work Transport Solutions</title>
-  <!-- Bootstrap 5 + Icons -->
+  <link rel="stylesheet" href="css/style.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <style>
-    :root {
-      --primary: #4361ee;
-      --primary-dark: #3a56d4;
-      --secondary: #7209b7;
-      --light-bg: #f9fbfd;
-      --sidebar-bg: #ffffff;
-      --card-shadow: 0 4px 20px rgba(67, 97, 238, 0.12);
-    }
-
-    body {
-      background-color: var(--light-bg);
-      font-family: 'Segoe UI', system-ui, sans-serif;
-    }
-
-    /* Navbar */
-    .navbar-brand {
-      font-weight: 700;
-      font-size: 1.4rem;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      position: fixed;
-      top: 56px;
-      bottom: 0;
-      left: 0;
-      z-index: 100;
-      padding: 1.5rem 0;
-      box-shadow: 0 0 15px rgba(0,0,0,0.05);
-      background: var(--sidebar-bg);
-      width: 250px;
-    }
-
-    .sidebar .nav-link {
-      padding: 0.75rem 1.5rem;
-      margin: 0.25rem 1rem;
-      border-radius: 8px;
-      font-weight: 500;
-      color: #495057;
-      transition: all 0.25s ease;
-    }
-
-    .sidebar .nav-link:hover,
-    .sidebar .nav-link.active {
-      background-color: var(--primary);
-      color: white !important;
-    }
-
-    .sidebar .nav-link i {
-      width: 24px;
-      text-align: center;
-      margin-right: 10px;
-    }
-
-    /* Main content */
-    .main-content {
-      margin-left: 250px;
-      padding: 2rem 2rem 2rem 2rem;
-    }
-
-    @media (max-width: 767.98px) {
-      .sidebar {
-        width: 100%;
-        position: relative;
-        top: 0;
-        height: auto;
-      }
-      .main-content {
-        margin-left: 0;
-      }
-    }
-
-    /* Cards */
-    .stat-card {
-      border: none;
-      border-radius: 16px;
-      box-shadow: var(--card-shadow);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      height: 100%;
-    }
-
-    .stat-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(67, 97, 238, 0.2);
-    }
-
-    .card-icon {
-      width: 60px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 14px;
-      font-size: 1.5rem;
-    }
-
-    .bg-users { background-color: rgba(67, 97, 238, 0.15); color: var(--primary); }
-    .bg-buses { background-color: rgba(114, 9, 183, 0.15); color: var(--secondary); }
-    .bg-drivers { background-color: rgba(40, 167, 69, 0.15); color: #28a745; }
-    .bg-bookings { background-color: rgba(255, 193, 7, 0.15); color: #ffc107; }
-
-    .card-title {
-      font-weight: 600;
-      margin: 1rem 0 0.5rem;
-    }
-
-    .card-text {
-      color: #6c757d;
-      font-size: 0.95rem;
-    }
-
-    .btn-primary {
-      background-color: var(--primary);
-      border: none;
-      padding: 0.4rem 1rem;
-      font-weight: 600;
-    }
-
-    .btn-primary:hover {
-      background-color: var(--primary-dark);
-    }
-
-    .welcome-banner {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      padding: 1.8rem 2rem; 
-      border-radius: 16px;
-      margin-bottom: 2rem;
-      margin-top: 1.5rem; 
-      box-shadow: var(--card-shadow);
-      position: relative;
-      z-index: 10; 
-    }
-
-    @media (max-width: 767.98px) {
-      .welcome-banner {
-        margin-top: 1rem;
-        padding: 1.5rem 1.5rem;
-      }
-    }
-
-    /* Slider */
-    .slider {
-      margin: 2rem 0;
-    }
-
-    .slides figure img {
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-
-    /* Testimonios */
-    .testimonios ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .testimonios li {
-      background: white;
-      border-radius: 12px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
-    /* Social */
-    .social-list {
-      display: flex;
-      gap: 1rem;
-      list-style: none;
-      padding: 0;
-    }
-
-    .social-list a {
-      background: white;
-      border-radius: 12px;
-      padding: 1rem;
-      text-decoration: none;
-      color: #333;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-      transition: transform 0.2s;
-    }
-
-    .social-list a:hover {
-      transform: translateY(-2px);
-    }
-  </style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-    <div class="container-fluid">
-      <a class="navbar-brand d-flex align-items-center" href="index.html">
-        <i class="bi bi-truck me-2"></i> 2Work
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<header id="navbar-container"></header>
+
+<div id="sidebar-container"></div>
+
+<main class="content-offset">
+  <div class="welcome-banner">
+    <h1>Bienvenido a 2Work</h1>
+    <p>Transporte corporativo seguro y eficiente para tu institución.</p>
+  </div>
+
+  <!-- Slider accesible (imágenes en extras/img/) -->
+  <section class="slider" aria-label="Galería de autobuses">
+    <div class="slides" id="slides">
+      <figure><img src="extras/img/bus1.jpg" alt="Autobús moderno 1"></figure>
+      <figure><img src="extras/img/bus2.jpg" alt="Autobús moderno 2"></figure>
+      <figure><img src="extras/img/bus3.jpg" alt="Flotilla de autobuses"></figure>
     </div>
-  </nav>
+  </section>
 
-<!-- Sidebar -->
-<nav class="sidebar d-md-block">
-  <ul class="nav flex-column" id="guest-menu">
-    <li class="nav-item">
-      <a class="nav-link" href="index.html">
-        <i class="bi bi-house-door"></i> Inicio
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="acerca.html">
-        <i class="bi bi-info-circle"></i> Acerca
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="servicios.html">
-        <i class="bi bi-gear"></i> Servicios
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="mapa.html">
-        <i class="bi bi-map"></i> Mapa
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="contacto.html">
-        <i class="bi bi-envelope"></i> Contáctenos
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="registro.html">
-        <i class="bi bi-person-plus"></i> Registro
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="http://localhost:5000/admin/dashboard.html">
-        <i class="bi bi-lock"></i> Iniciar sesión
-      </a>
-    </li>
-  </ul>
+  <section class="hero" aria-labelledby="hero-title">
+    <h1 id="hero-title">Transporte corporativo seguro y eficiente</h1>
+    <p>2Work ofrece soluciones de transporte empresarial con seguimiento, comodidad y puntualidad.</p>
+    <p><a class="btn btn-primary" href="servicios.html">Conoce nuestros servicios</a></p>
+  </section>
 
-  <ul class="nav flex-column" id="user-menu" style="display:none;">
-    <li class="nav-item">
-      <a class="nav-link" href="index.html">
-        <i class="bi bi-house-door"></i> Inicio
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="acerca.html">
-        <i class="bi bi-info-circle"></i> Acerca
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="servicios.html">
-        <i class="bi bi-gear"></i> Servicios
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="mapa.html">
-        <i class="bi bi-map"></i> Mapa
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="contacto.html">
-        <i class="bi bi-envelope"></i> Contáctenos
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="usuario/mis-reservas.html">
-        <i class="bi bi-calendar-check"></i> Mis reservas
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#" id="logout-link">
-        <i class="bi bi-box-arrow-right"></i> Cerrar sesión
-      </a>
-    </li>
-  </ul>
-</nav>
+  <section class="testimonios" aria-labelledby="testi-title">
+    <h2 id="testi-title">Testimonios</h2>
+    <ul>
+      <li>"El servicio es excelente, siempre puntuales." — Ana R.</li>
+      <li>"Buses cómodos y atención profesional." — Carlos V.</li>
+    </ul>
+  </section>
 
-  <!-- Main Content -->
-  <main class="main-content">
-    <div class="welcome-banner">
-      <h1>Bienvenido a 2Work</h1>
-      <p>Transporte corporativo seguro y eficiente para tu institución.</p>
-    </div>
+  <section class="social" aria-labelledby="social-title">
+    <h2 id="social-title">Síguenos</h2>
+    <ul class="social-list">
+      <li><a href="#" aria-label="Facebook de 2Work">Facebook</a></li>
+      <li><a href="#" aria-label="Instagram de 2Work">Instagram</a></li>
+      <li><a href="#" aria-label="LinkedIn de 2Work">LinkedIn</a></li>
+    </ul>
+  </section>
+</main>
 
-    <!-- Slider accesible (imágenes en extras/img/) -->
-    <section class="slider" aria-label="Galería de autobuses">
-      <div class="slides" id="slides">
-        <figure><img src="extras/img/bus1.jpg" alt="Autobús moderno 1"></figure>
-        <figure><img src="extras/img/bus2.jpg" alt="Autobús moderno 2"></figure>
-        <figure><img src="extras/img/bus3.jpg" alt="Flotilla de autobuses"></figure>
-      </div>
-    </section>
-
-    <section class="hero" aria-labelledby="hero-title">
-      <h1 id="hero-title">Transporte corporativo seguro y eficiente</h1>
-      <p>2Work ofrece soluciones de transporte empresarial con seguimiento, comodidad y puntualidad.</p>
-      <p><a class="btn btn-primary" href="servicios.html">Conoce nuestros servicios</a></p>
-    </section>
-
-    <section class="testimonios" aria-labelledby="testi-title">
-      <h2 id="testi-title">Testimonios</h2>
-      <ul>
-        <li>"El servicio es excelente, siempre puntuales." — Ana R.</li>
-        <li>"Buses cómodos y atención profesional." — Carlos V.</li>
-      </ul>
-    </section>
-
-    <section class="social" aria-labelledby="social-title">
-      <h2 id="social-title">Síguenos</h2>
-      <ul class="social-list">
-        <li><a href="#" aria-label="Facebook de 2Work">Facebook</a></li>
-        <li><a href="#" aria-label="Instagram de 2Work">Instagram</a></li>
-        <li><a href="#" aria-label="LinkedIn de 2Work">LinkedIn</a></li>
-      </ul>
-    </section>
-  </main>
-
-  <!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/active-link.js"></script>
 <script>
-// Verificar sesión al cargar
-document.addEventListener('DOMContentLoaded', async () => {
-  try {
-    const res = await fetch('/check-user');
-    const data = await res.json();
-    
-    if (data.logged_in && data.user.rol === 'usuario') {
-      // Mostrar menú de usuario, ocultar menú de invitado
-      document.getElementById('guest-menu').style.display = 'none';
-      document.getElementById('user-menu').style.display = 'block';
-    }
-  } catch (err) {
-    console.log('No se pudo verificar sesión:', err);
-  }
-});
+  // Verificar sesión al cargar
+  document.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const res = await fetch('/check-user');
+      const data = await res.json();
 
-// Cerrar sesión
-document.getElementById('logout-link')?.addEventListener('click', async (e) => {
-  e.preventDefault();
-  try {
-    await fetch('/logout-publico', { method: 'POST' });
-    window.location.href = 'index.html';
-  } catch (err) {
-    alert('Error al cerrar sesión');
-  }
-});
+      if (data.logged_in && data.user.rol === 'usuario') {
+        // Mostrar menú de usuario, ocultar menú de invitado
+        document.getElementById('guest-menu').style.display = 'none';
+        document.getElementById('user-menu').style.display = 'block';
+      }
+    } catch (err) {
+      console.log('No se pudo verificar sesión:', err);
+    }
+  });
+
+  // Cerrar sesión
+  document.getElementById('logout-link')?.addEventListener('click', async (e) => {
+    e.preventDefault();
+    try {
+      await fetch('/logout-publico', { method: 'POST' });
+      window.location.href = 'index.html';
+    } catch (err) {
+      alert('Error al cerrar sesión');
+    }
+  });
 </script>
 </body>
 </html>

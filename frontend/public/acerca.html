@@ -4,47 +4,76 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Acerca - 2Work</title>
-  <link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 <body>
-  <header class="site-header">
-    <nav class="navbar">
-      <a class="logo" href="index.html">2Work</a>
-      <ul class="menu">
-        <li><a href="index.html">Inicio</a></li>
-        <li><a class="active" href="acerca.html">Acerca</a></li>
-        <li><a href="servicios.html">Servicios</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <main class="content" id="main">
-    <h1>Acerca de 2Work</h1>
+  <header id="navbar-container"></header>
 
-    <section aria-labelledby="mision">
-      <h2 id="mision">Misión</h2>
-      <p>Brindar soluciones de transporte corporativo seguras, eficientes y confiables, facilitando la movilidad de los colaboradores entre sus hogares y oficinas mediante tecnología accesible y un servicio de alta calidad.</p>
-    </section>
+  <div id="sidebar-container"></div>
 
-    <section aria-labelledby="vision">
-      <h2 id="vision">Visión</h2>
-      <p>Convertirnos en la empresa líder en transporte corporativo inteligente en Costa Rica, destacándonos por la innovación, sostenibilidad y experiencia del usuario.</p>
-    </section>
+  <main class="content-offset">
 
-    <section aria-labelledby="valores">
-      <h2 id="valores">Valores</h2>
-      <ul>
-        <li>Seguridad</li>
-        <li>Innovación</li>
-        <li>Responsabilidad</li>
-        <li>Compromiso</li>
-        <li>Transparencia</li>
-      </ul>
-    </section>
+    <div class="container-fluid">
+        <h1 class="mb-4 text-primary fw-bold">Acerca de 2Work Transport Solutions</h1>
+
+        <section aria-labelledby="mision" class="mb-5">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h2 id="mision" class="card-title text-secondary mb-3">
+                        <i class="bi bi-bullseye me-2"></i> Misión
+                    </h2>
+                    <p class="card-text lead">Brindar soluciones de transporte corporativo seguras, eficientes y confiables, facilitando la movilidad de los colaboradores entre sus hogares y oficinas mediante tecnología accesible y un servicio de alta calidad.</p>
+                </div>
+            </div>
+        </section>
+
+        <section aria-labelledby="vision" class="mb-5">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h2 id="vision" class="card-title text-secondary mb-3">
+                        <i class="bi bi-eye me-2"></i> Visión
+                    </h2>
+                    <p class="card-text lead">Convertirnos en la empresa líder en transporte corporativo inteligente en Costa Rica, destacándonos por la innovación, sostenibilidad y experiencia del usuario.</p>
+                </div>
+            </div>
+        </section>
+
+        <section aria-labelledby="valores" class="mb-5">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+                    <h2 id="valores" class="card-title text-secondary mb-4">
+                        <i class="bi bi-shield-lock me-2"></i> Valores
+                    </h2>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-3 mb-3">
+                            <span class="d-block fw-bold text-primary"><i class="bi bi-check-circle-fill me-2"></i> Seguridad</span>
+                        </div>
+                        <div class="col-md-6 col-lg-3 mb-3">
+                            <span class="d-block fw-bold text-primary"><i class="bi bi-lightbulb-fill me-2"></i> Innovación</span>
+                        </div>
+                        <div class="col-md-6 col-lg-3 mb-3">
+                            <span class="d-block fw-bold text-primary"><i class="bi bi-file-earmark-check-fill me-2"></i> Responsabilidad</span>
+                        </div>
+                        <div class="col-md-6 col-lg-3 mb-3">
+                            <span class="d-block fw-bold text-primary"><i class="bi bi-person-fill-check me-2"></i> Compromiso</span>
+                        </div>
+                        <div class="col-md-6 col-lg-3 mb-3">
+                            <span class="d-block fw-bold text-primary"><i class="bi bi-share-fill me-2"></i> Transparencia</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
   </main>
 
-  <footer class="site-footer">
-    <p>© 2025 2Work Transport Solutions</p>
-  </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script src="js/scripts.js"></script>
+  <script src="js/active-link.js"></script>
 </body>
 </html>
