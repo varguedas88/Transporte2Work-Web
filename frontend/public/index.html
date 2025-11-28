@@ -20,37 +20,42 @@
     <p>Transporte corporativo seguro y eficiente para tu institución.</p>
   </div>
 
-  <!-- Slider accesible (imágenes en extras/img/) -->
-  <section class="slider" aria-label="Galería de autobuses">
-    <div class="slides" id="slides">
-      <figure><img src="extras/img/bus1.jpg" alt="Autobús moderno 1"></figure>
-      <figure><img src="extras/img/bus2.jpg" alt="Autobús moderno 2"></figure>
-      <figure><img src="extras/img/bus3.jpg" alt="Flotilla de autobuses"></figure>
-    </div>
+  <div class="container-fluid">
+    <section class="slider my-5" aria-label="Galería de autobuses">
+      <div class="slides" id="slides">
+        <figure><img src="extras/img/bus1.jpg" class="img-fluid rounded shadow-sm" alt="Autobús moderno 1"></figure>
+        <figure><img src="extras/img/bus2.jpg" class="img-fluid rounded shadow-sm" alt="Autobús moderno 2"></figure>
+        <figure><img src="extras/img/bus3.jpg" class="img-fluid rounded shadow-sm" alt="Flotilla de autobuses"></figure>
+      </div>
+    </section>
+  </div>
+
+  <section class="hero container my-5" aria-labelledby="hero-title">
+    <h1 id="hero-title" class="mb-3 display-5">Transporte corporativo seguro y eficiente</h1>
+    <p class="lead">2Work ofrece soluciones de transporte empresarial con seguimiento, comodidad y puntualidad.</p>
+    <p><a class="btn btn-primary btn-lg mt-3" href="servicios.html">Conoce nuestros servicios</a></p>
   </section>
 
-  <section class="hero" aria-labelledby="hero-title">
-    <h1 id="hero-title">Transporte corporativo seguro y eficiente</h1>
-    <p>2Work ofrece soluciones de transporte empresarial con seguimiento, comodidad y puntualidad.</p>
-    <p><a class="btn btn-primary" href="servicios.html">Conoce nuestros servicios</a></p>
-  </section>
+  <hr class="my-5">
 
-  <section class="testimonios" aria-labelledby="testi-title">
-    <h2 id="testi-title">Testimonios</h2>
-    <ul>
-      <li>"El servicio es excelente, siempre puntuales." — Ana R.</li>
-      <li>"Buses cómodos y atención profesional." — Carlos V.</li>
-    </ul>
-  </section>
+  <div class="container">
+    <section class="testimonios mb-5" aria-labelledby="testi-title">
+      <h2 id="testi-title" class="mb-4">Testimonios</h2>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">"El servicio es excelente, siempre puntuales." — **Ana R.**</li>
+        <li class="list-group-item">"Buses cómodos y atención profesional." — **Carlos V.**</li>
+      </ul>
+    </section>
 
-  <section class="social" aria-labelledby="social-title">
-    <h2 id="social-title">Síguenos</h2>
-    <ul class="social-list">
-      <li><a href="#" aria-label="Facebook de 2Work">Facebook</a></li>
-      <li><a href="#" aria-label="Instagram de 2Work">Instagram</a></li>
-      <li><a href="#" aria-label="LinkedIn de 2Work">LinkedIn</a></li>
-    </ul>
-  </section>
+    <section class="social" aria-labelledby="social-title">
+      <h2 id="social-title" class="mb-4">Síguenos</h2>
+      <ul class="social-list list-unstyled d-flex gap-3 fs-3">
+        <li><a href="#" aria-label="Facebook de 2Work" class="text-primary"><i class="bi bi-facebook"></i></a></li>
+        <li><a href="#" aria-label="Instagram de 2Work" class="text-primary"><i class="bi bi-instagram"></i></a></li>
+        <li><a href="#" aria-label="LinkedIn de 2Work" class="text-primary"><i class="bi bi-linkedin"></i></a></li>
+      </ul>
+    </section>
+  </div>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
