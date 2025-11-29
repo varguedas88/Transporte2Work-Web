@@ -4,133 +4,17 @@
   <meta charset="utf-8">
   <title>Reservas - Admin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Bootstrap + Icons -->
+<link rel="stylesheet" href="css/style.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <style>
-    :root {
-      --primary: #4361ee;
-      --primary-dark: #3a56d4;
-      --secondary: #ff9800;
-      --light-bg: #f9fbfd;
-      --card-shadow: 0 4px 15px rgba(255, 152, 0, 0.12);
-    }
 
-    body {
-      background-color: var(--light-bg);
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      padding-top: 20px;
-    }
-
-    .page-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .page-title {
-      font-weight: 700;
-      color: #212529;
-      font-size: 1.8rem;
-    }
-
-    .btn-action {
-      background: linear-gradient(to right, var(--secondary), #e65100);
-      border: none;
-      padding: 0.5rem 1.2rem;
-      font-weight: 600;
-      color: white;
-    }
-
-    .btn-action:hover {
-      opacity: 0.9;
-    }
-
-    .table-container {
-      background: white;
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: var(--card-shadow);
-    }
-
-    .table th {
-      background-color: #f8f9fa;
-      font-weight: 600;
-      color: #495057;
-    }
-
-    .table td {
-      vertical-align: middle;
-    }
-
-    .btn-sm {
-      padding: 0.25rem 0.6rem;
-      font-size: 0.85rem;
-    }
-
-    .badge-en-curso {
-      background: rgba(255, 152, 0, 0.15);
-      color: #e65100;
-      padding: 0.25em 0.5em;
-      border-radius: 6px;
-      font-weight: 600;
-    }
-
-    .badge-finalizado {
-      background: rgba(76, 175, 80, 0.15);
-      color: #2e7d32;
-      padding: 0.25em 0.5em;
-      border-radius: 6px;
-      font-weight: 600;
-    }
-
-    /* Modal */
-    .modal-content {
-      border: none;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    }
-
-    .modal-header {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .modal-title {
-      font-weight: 700;
-      font-size: 1.4rem;
-    }
-
-    .modal-body {
-      padding-top: 1rem;
-    }
-
-    .form-label {
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-      color: #495057;
-    }
-
-    .modal-footer {
-      border-top: none;
-      padding-top: 0;
-      padding-bottom: 1.5rem;
-    }
-
-    .form-control, .form-select {
-      border: 1px solid #ced4da;
-      padding: 0.45rem 0.8rem;
-    }
-
-    .form-control:focus, .form-select:focus {
-      box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.15);
-      border-color: var(--secondary);
-    }
-  </style>
 </head>
 <body>
-  <div class="container">
+  <header id="navbar-container"></header>
+
+  <div id="sidebar-container"></div>
+  <main class="content-offset">
+      <div class="container">
     <div class="page-header">
       <h1 class="page-title">Reservas</h1>
       <button id="btnNuevo" class="btn btn-action">
@@ -203,8 +87,12 @@
       </div>
     </div>
   </div>
+  </main>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/scripts.js"></script>
+  <script src="js/active-link.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const modalRes = new bootstrap.Modal(document.getElementById('modalReserva'));

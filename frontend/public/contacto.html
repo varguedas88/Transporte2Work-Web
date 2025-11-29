@@ -3,41 +3,33 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Contacto - 2Work</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <title>Contáctenos - 2Work</title>
+<link rel="stylesheet" href="css/style.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 </head>
 <body>
-  <header class="site-header">
-    <nav class="navbar">
-      <a class="logo" href="index.html">2Work</a>
-    </nav>
-  </header>
 
-  <main class="content">
-    <h1>Contáctenos</h1>
-    <form id="contactForm" onsubmit="return validateContact(event)" novalidate>
-      <label for="nombre">Nombre completo</label>
-      <input id="nombre" name="nombre" type="text" required minlength="3" />
+  <header id="navbar-container"></header>
 
-      <label for="correo">Correo electrónico</label>
-      <input id="correo" name="correo" type="email" required />
+  <div id="sidebar-container"></div>
 
-      <label for="telefono">Teléfono</label>
-      <input id="telefono" name="telefono" type="tel" pattern="^[0-9+()\\-\\s]{6,20}$" />
+  <main class="content-offset">
+    <h1 class="mb-4 text-center">Contáctenos y Evalúe su Experiencia</h1>
 
-      <label for="mensaje">Mensaje</label>
-      <textarea id="mensaje" name="mensaje" rows="5" required minlength="10"></textarea>
+    <div id="contact-form-container">
+        </div>
 
-      <button type="submit" class="btn">Enviar</button>
-    </form>
-
-    <p class="note">Al enviar el formulario se demostrará la validación. Para enviar a correo real, integrar backend o usar servicio (Mailgun/SMTP).</p>
   </main>
 
-  <footer class="site-footer">
-    <p>© 2025 2Work</p>
-  </footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-  <script src="js/validate.js"></script>
+  <script src="js/scripts.js"></script>
+  <script src="js/auth-menu.js"></script>
+  <script src="js/active-link.js"></script>
+  <script src="js/contact-logic.js"></script>
+</body>
+</html>
 </body>
 </html>

@@ -3,9 +3,14 @@ import sqlite3
 import os
 import uuid
 
+
+from dotenv import load_dotenv
+load_dotenv()
+from backend.admin.send_email_service import send_contact_email
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.join(BASE_DIR, '..', '..') 
 FRONTEND_DIR = os.path.join(PROJECT_ROOT, 'frontend', 'public')
+BACKEND_DIR = os.path.join(PROJECT_ROOT, 'backend', 'admin')
 USER_PAGES_DIR = os.path.join(FRONTEND_DIR, 'usuario')
 
 DB_PATH = os.path.join(os.path.dirname(__file__), "database.db")
@@ -387,6 +392,9 @@ def serve_dashboard():
         return send_from_directory('.', 'login.html')
     return send_from_directory('.', 'dashboard.html')
 
+@app.route('/admin/<path:filename>')
+def serve_static_backend(filename):
+    return send_from_directory(BACKEND_DIR, filename)
 
 @app.route("/admin/usuarios.html")
 def serve_usuarios_html():
@@ -403,6 +411,25 @@ def serve_choferes_html():
 @app.route("/admin/reservas.html")
 def serve_reservas_html():
     return send_from_directory('.', 'reservas.html')
+
+
+@app.route('/api/send-email', methods=['POST'])
+def handle_contact_form():
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"message": "Faltan datos del formulario (JSON vacío)."}), 400
+
+    required_fields = ['name', 'email', 'subject', 'message', 'rating']
+    if not all(field in data for field in required_fields):
+        return jsonify({"message": "Faltan campos requeridos."}), 400
+
+    email_sent = send_contact_email(data)
+
+    if email_sent:
+        return jsonify({"message": "Mensaje enviado con éxito."}), 200
+    else:
+        return jsonify({"message": "Error interno del servidor. No se pudo enviar el correo."}), 500
 
 if __name__ == "__main__":
     print("Iniciando servidor Flask en http://localhost:5000/")
