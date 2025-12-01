@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro – Transporte2Work</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+    <!-- HEADER / MENÚ -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">T2W</div>
+            <ul class="menu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="servicios.html">Servicios</a></li>
+                <li><a href="acerca.html">Acerca</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
+                <li><a href="login.html" class="btn-login">Login</a></li>
+                <li><a href="registro.html" class="active btn-primary">Registro</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- HERO / TÍTULO DE LA PÁGINA -->
+    <main class="hero">
+        <div class="hero-content">
+            <h1>Registro de usuario</h1>
+            <p>Completá el formulario para crear tu cuenta y acceder a nuestros servicios corporativos.</p>
+        </div>
+    </main>
+
+    <!-- FORMULARIO DE REGISTRO -->
+    <section class="content-block">
+        <form aria-label="Formulario de registro">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" required>
+
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" required>
+
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" required>
+
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" pattern="[0-9]{8}" placeholder="Ej: 88888888" required>
+
+            <label for="contrasena">Contraseña:</label>
+            <input type="password" id="contrasena" minlength="6" required>
+
+            <label for="confirmar">Confirmar contraseña:</label>
+            <input type="password" id="confirmar" minlength="6" required>
+
+            <button type="submit" class="btn-primary">Registrar</button>
+        </form>
+
+        <p style="margin-top: 15px;">
+            ¿Ya tenés cuenta? <a href="login.html">Iniciá sesión</a>.
+        </p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>© 2025 Transporte2Work. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>

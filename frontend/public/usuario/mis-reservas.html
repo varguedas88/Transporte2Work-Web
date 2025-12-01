@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Mis Reservas - 2Work</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap 5 + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --primary-dark: #3a56d4;
+      --secondary: #ff9800;
+      --light-bg: #f9fbfd;
+      --card-shadow: 0 4px 15px rgba(255, 152, 0, 0.12);
+    }
+
+    body {
+      background-color: var(--light-bg);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      padding-top: 20px;
+    }
+
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .page-title {
+      font-weight: 700;
+      color: #212529;
+      font-size: 1.8rem;
+    }
+
+    .btn-action {
+      background: linear-gradient(to right, var(--secondary), #e65100);
+      border: none;
+      padding: 0.5rem 1.2rem;
+      font-weight: 600;
+      color: white;
+    }
+
+    .btn-action:hover {
+      opacity: 0.9;
+    }
+
+    .reserva-card {
+      border: none;
+      border-radius: 16px;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid var(--secondary);
+    }
+
+    .reserva-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 152, 0, 0.2);
+    }
+
+    .badge-en-curso {
+      background: rgba(255, 152, 0, 0.15);
+      color: #e65100;
+      padding: 0.25em 0.5em;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .badge-finalizado {
+      background: rgba(76, 175, 80, 0.15);
+      color: #2e7d32;
+      padding: 0.25em 0.5em;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    /* Modal */
+    .modal-content {
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .modal-header {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .modal-title {
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+
+    .modal-body {
+      padding-top: 1rem;
+    }
+
+    .form-label {
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: #495057;
+    }
+
+    .modal-footer {
+      border-top: none;
+      padding-top: 0;
+      padding-bottom: 1.5rem;
+    }
+
+    .form-control, .form-select {
+      border: 1px solid #ced4da;
+      padding: 0.45rem 0.8rem;
+    }
+
+    .form-control:focus, .form-select:focus {
+      box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.15);
+      border-color: var(--secondary);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #6c757d;
+    }
+
+    .empty-state h3 {
+      margin-bottom: 1rem;
+      color: #495057;
+    }
+
+    .user-info {
+      background: white;
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .user-info h5 {
+      font-weight: 600;
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Información del usuario -->
+    <div class="user-info">
+      <h5><i class="bi bi-person-circle me-2"></i>Bienvenido, <span id="user-name">Usuario</span></h5>
+    </div>
+
+    <div class="page-header">
+      <h1 class="page-title">Mis Reservas</h1>
+      <button id="btnNuevaReserva" class="btn btn-action">
+        <i class="bi bi-calendar-plus me-1"></i> Nueva Reserva
+      </button>
+    </div>
+
+    <div id="reservasContainer">
+      <!-- Las reservas se cargarán aquí -->
+      <p>Cargando tus reservas...</p>
+    </div>
+
+    <!-- Modal para nueva reserva -->
+    <div class="modal fade" id="modalReserva" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form id="formReserva">
+            <div class="modal-header">
+              <h5 class="modal-title">Solicitar Nueva Reserva</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label class="form-label">Seleccionar Bus</label>
+                <select id="bus_id" class="form-select" required>
+                  <option value="">Cargando buses...</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Fecha de inicio</label>
+                <input id="fecha_inicio" type="date" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Fecha de fin (opcional)</label>
+                <input id="fecha_fin" type="date" class="form-control">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-warning">Solicitar Reserva</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    let currentUser = null;
+    const modalRes = new bootstrap.Modal(document.getElementById('modalReserva'));
+    const apiBase = '/admin';
+
+    // Mostrar mensaje de error/success
+    function showMessage(message, type = 'success') {
+      const div = document.createElement('div');
+      div.className = `alert alert-${type} alert-dismissible fade show`;
+      div.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      `;
+      document.querySelector('.container').prepend(div);
+      setTimeout(() => div.remove(), 5000);
+    }
+
+    // Verificar sesión de usuario
+    async function checkUserSession() {
+      try {
+        const res = await fetch('/check-user');
+        const data = await res.json();
+        
+        if (!data.logged_in || data.user.rol !== 'usuario') {
+          window.location.href = '../login.html';
+          return;
+        }
+        
+        currentUser = data.user;
+        document.getElementById('user-name').textContent = currentUser.nombre;
+        loadReservas();
+      } catch (err) {
+        showMessage('Error al verificar sesión', 'danger');
+        window.location.href = '../login.html';
+      }
+    }
+
+    // Cargar lista de buses
+    async function cargarBuses() {
+      try {
+        const res = await fetch(apiBase + '/buses');
+        const buses = await res.json();
+        const select = document.getElementById('bus_id');
+        select.innerHTML = '<option value="">Seleccione un bus</option>';
+        
+        buses.forEach(b => {
+          const opt = document.createElement('option');
+          opt.value = b.id;
+          opt.textContent = `${b.placa} - ${b.modelo}`;
+          select.appendChild(opt);
+        });
+      } catch (err) {
+        showMessage('Error al cargar buses', 'danger');
+      }
+    }
+
+    // Cargar reservas del usuario
+    async function loadReservas() {
+      try {
+        const res = await fetch(apiBase + '/reservas');
+        const reservas = await res.json();
+        const userReservas = reservas.filter(r => r.usuario_id == currentUser.id);
+        const container = document.getElementById('reservasContainer');
+        
+        if (userReservas.length === 0) {
+          container.innerHTML = `
+            <div class="empty-state">
+              <h3>No tienes reservas aún</h3>
+              <p>Solicita tu primera reserva de transporte usando el botón "Nueva Reserva".</p>
+            </div>
+          `;
+          return;
+        }
+        
+        let html = '';
+        userReservas.forEach(r => {
+          const inicio = r.fecha_inicio ? new Date(r.fecha_inicio).toLocaleDateString('es-ES') : '—';
+          const fin = r.fecha_fin ? new Date(r.fecha_fin).toLocaleDateString('es-ES') : '—';
+          const statusBadge = r.estado === 'finalizado' 
+            ? '<span class="badge-finalizado">Finalizado</span>'
+            : '<span class="badge-en-curso">En curso</span>';
+          
+          html += `
+            <div class="card reserva-card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                  <div>
+                    <h5 class="card-title">Reserva #${r.id}</h5>
+                    <p class="mb-1"><strong>Bus:</strong> ${r.bus || '—'}</p>
+                  </div>
+                  <div>${statusBadge}</div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 mb-2">
+                    <small class="text-muted">Fecha de inicio</small>
+                    <p>${inicio}</p>
+                  </div>
+                  <div class="col-md-6 mb-2">
+                    <small class="text-muted">Fecha de fin</small>
+                    <p>${fin}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        
+        container.innerHTML = html;
+      } catch (err) {
+        showMessage('Error al cargar reservas', 'danger');
+        container.innerHTML = '<p class="text-danger">No se pudieron cargar tus reservas.</p>';
+      }
+    }
+
+    // Nueva reserva
+    document.getElementById('btnNuevaReserva').addEventListener('click', async () => {
+      await cargarBuses();
+      const hoy = new Date().toISOString().split('T')[0];
+      document.getElementById('fecha_inicio').value = hoy;
+      document.getElementById('formReserva').reset();
+      modalRes.show();
+    });
+
+    // Guardar reserva
+    document.getElementById('formReserva').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const bus_id = document.getElementById('bus_id').value;
+      const fecha_inicio = document.getElementById('fecha_inicio').value;
+      
+      if (!bus_id || !fecha_inicio) {
+        showMessage('Por favor seleccione un bus y fecha de inicio', 'warning');
+        return;
+      }
+      
+      try {
+        const payload = {
+          usuario_id: currentUser.id,
+          bus_id: parseInt(bus_id),
+          fecha_inicio: fecha_inicio,
+          fecha_fin: document.getElementById('fecha_fin').value || null,
+          estado: 'en curso'
+        };
+        
+        const res = await fetch(apiBase + '/reservas', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        
+        if (res.ok) {
+          showMessage('Reserva solicitada exitosamente', 'success');
+          modalRes.hide();
+          loadReservas();
+        } else {
+          const data = await res.json();
+          showMessage(data.error || 'Error al crear la reserva', 'danger');
+        }
+      } catch (err) {
+        showMessage('Error de conexión', 'danger');
+      }
+    });
+
+    // Cerrar sesión
+    function setupLogout() {
+      // Si tienes un botón de logout en el futuro
+    }
+
+    // Inicializar
+    document.addEventListener('DOMContentLoaded', () => {
+      checkUserSession();
+    });
+  </script>
+</body>
+</html>

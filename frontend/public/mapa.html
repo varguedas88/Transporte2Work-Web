@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mapa – Transporte2Work</title>
+  <link rel="stylesheet" href="css/estilos.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    #map {
+      width: 100%;
+      height: 500px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    main p {
+      font-size: 1rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER / MENÚ -->
+  <header class="header">
+      <nav class="nav">
+          <div class="logo">T2W</div>
+          <ul class="menu">
+              <li><a href="index.html">Inicio</a></li>
+              <li><a href="servicios.html">Servicios</a></li>
+              <li><a href="acerca.html">Acerca</a></li>
+              <li><a href="contacto.html">Contacto</a></li>
+              <li><a href="login.html" class="btn-login">Login</a></li>
+              <li><a href="registro.html" class="btn-primary">Registro</a></li>
+          </ul>
+      </nav>
+  </header>
+
+  <!-- HERO / TÍTULO DE LA PÁGINA -->
+  <main class="hero">
+    <div class="hero-content">
+      <h1>Ubicación de nuestras oficinas</h1>
+      <p>Conoce dónde se encuentran nuestras oficinas y planifica tu traslado corporativo.</p>
+    </div>
+  </main>
+
+  <!-- MAPA -->
+  <section class="content-block">
+    <div id="map" role="application" aria-label="Mapa con ubicación de 2Work"></div>
+    <p>Marcador aproximado en San José, Costa Rica. Ajustar coordenadas a la ubicación real en el esquema/datos.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+      <p>© 2025 Transporte2Work. Todos los derechos reservados.</p>
+  </footer>
+
+  <script src="js/mapa-logic.js"></script>
+  <script src="js/active-link.js"></script>
+  <script src="js/auth-menu.js"></script>
+</body>
+</html>

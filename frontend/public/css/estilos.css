@@ -1,0 +1,147 @@
+/* === Estilos generales === */
+:root {
+    --primario: #2d6cdf;
+    --primario-oscuro: #1f4ea3;
+    --gris: #f2f2f2;
+    --texto: #222;
+    --blanco: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background: var(--gris);
+    color: var(--texto);
+    line-height: 1.6;
+}
+
+/* === Header y Navegación === */
+.header {
+    background: var(--blanco);
+    padding: 15px 25px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primario);
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: var(--texto);
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.menu a:hover,
+.menu a.active {
+    color: var(--primario);
+}
+
+.btn-login {
+    padding: 8px 15px;
+    background: var(--primario);
+    color: var(--blanco) !important;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.btn-login:hover {
+    background: var(--primario-oscuro);
+}
+
+/* === Hero === */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero-content {
+    max-width: 600px;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+}
+
+.btn-primary {
+    display: inline-block;
+    padding: 12px 20px;
+    background: var(--primario);
+    color: var(--blanco);
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    background: var(--primario-oscuro);
+}
+
+/* === Footer === */
+.footer {
+    margin-top: 60px;
+    background: #ddd;
+    padding: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+/* Mejoras profesionales */
+body {
+    background: #f5f7fa;
+}
+.hero {
+    padding: 60px 20px;
+}
+.content-block {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+.content-block h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+.content-block p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+

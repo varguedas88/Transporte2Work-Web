@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Mapa - 2Work Transporte Empresarial</title>
+  <link rel="stylesheet" href="css/estilos.css">
+  <style>
+    #mapa {
+      width: 100%;
+      height: 400px;
+      border: 2px solid #004080;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Menú -->
+  <div id="menu"></div>
+
+  <main>
+    <section id="ubicacion">
+      <h1>Nuestra Ubicación</h1>
+      <p>Encuéntranos en San José, Costa Rica.</p>
+      
+      <!-- Mapa incrustado -->
+      <div id="mapa">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.0099999999998!2d-84.0900!3d9.9333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0e31d00000001%3A0x0000000000000000!2sSan%20Jos%C3%A9%2C%20Costa%20Rica!5e0!3m2!1ses!2scr!4v1732972800000"
+          width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy">
+        </iframe>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <div id="footer"></div>
+
+  <!-- Script para cargar menú y footer -->
+  <script>
+    fetch("componentes/menu.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("menu").innerHTML = data);
+
+    fetch("componentes/footer.html")
+      .then(res => res.text())
+      .then(data => document.getElementById("footer").innerHTML = data);
+  </script>
+</body>
+</html>
