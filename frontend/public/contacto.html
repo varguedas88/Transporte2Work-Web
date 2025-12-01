@@ -1,43 +1,125 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Contacto - 2Work</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contacto – Transporte2Work</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="css/estilos.css" />
+  <style>
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; }
+    .form-group input, .form-group textarea {
+      width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; font-size: 1rem;
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    button[type="submit"] {
+      background: var(--secondary); color: white; padding: 0.75rem 2rem;
+      border: none; border-radius: 30px; font-weight: bold; cursor: pointer;
+      transition: background 0.3s;
+    }
+    button[type="submit"]:hover { background: #ea580c; }
+  </style>
 </head>
 <body>
-  <header class="site-header">
+
+  <!-- HEADER -->
+  <header class="header">
     <nav class="navbar">
-      <a class="logo" href="index.html">2Work</a>
+      <div class="logo">T2W</div>
+      <ul class="nav-menu">
+        <li><a href="index.html"><i class="bi bi-house-door"></i> Inicio</a></li>
+        <li><a href="acerca.html"><i class="bi bi-info-circle"></i> Acerca</a></li>
+        <li><a href="servicios.html"><i class="bi bi-gear"></i> Servicios</a></li>
+        <li><a href="mapa.html"><i class="bi bi-map"></i> Mapa</a></li>
+        <li><a href="contacto.html" class="active"><i class="bi bi-envelope"></i> Contáctenos</a></li>
+        <li><a href="registro.html"><i class="bi bi-person-plus"></i> Registro</a></li>
+        <li><a href="login.html"><i class="bi bi-lock"></i> Iniciar sesión</a></li>
+        <li><a href="http://localhost:5000/admin/dashboard.html"><i class="bi bi-shield-lock"></i> Admin</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span><span></span><span></span>
+      </div>
     </nav>
   </header>
 
-  <main class="content">
-    <h1>Contáctenos</h1>
-    <form id="contactForm" onsubmit="return validateContact(event)" novalidate>
-      <label for="nombre">Nombre completo</label>
-      <input id="nombre" name="nombre" type="text" required minlength="3" />
+  <!-- HERO -->
+  <section class="hero hero-contacto">
+    <div class="hero-overlay">
+      <h1>Contáctanos</h1>
+      <p>Envíanos tus dudas, sugerencias o solicitudes. ¡Estamos para servirte!</p>
+    </div>
+  </section>
 
-      <label for="correo">Correo electrónico</label>
-      <input id="correo" name="correo" type="email" required />
-
-      <label for="telefono">Teléfono</label>
-      <input id="telefono" name="telefono" type="tel" pattern="^[0-9+()\\-\\s]{6,20}$" />
-
-      <label for="mensaje">Mensaje</label>
-      <textarea id="mensaje" name="mensaje" rows="5" required minlength="10"></textarea>
-
-      <button type="submit" class="btn">Enviar</button>
-    </form>
-
-    <p class="note">Al enviar el formulario se demostrará la validación. Para enviar a correo real, integrar backend o usar servicio (Mailgun/SMTP).</p>
+  <!-- FORMULARIO -->
+  <main class="section">
+    <div class="container">
+      <form action="https://formspree.io/f/xdkqzope" method="POST" style="max-width: 600px; margin: 0 auto;">
+        <div class="form-group">
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" name="nombre" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" name="mensaje" required></textarea>
+        </div>
+        <div class="form-group">
+          <label>¿Cómo calificarías tu experiencia en el sitio? (1–5)</label>
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.4rem;">
+            <input type="radio" id="exp1" name="experiencia" value="1" required /><label for="exp1">1</label>
+            <input type="radio" id="exp2" name="experiencia" value="2" /><label for="exp2">2</label>
+            <input type="radio" id="exp3" name="experiencia" value="3" /><label for="exp3">3</label>
+            <input type="radio" id="exp4" name="experiencia" value="4" /><label for="exp4">4</label>
+            <input type="radio" id="exp5" name="experiencia" value="5" /><label for="exp5">5</label>
+          </div>
+        </div>
+        <button type="submit">Enviar mensaje</button>
+      </form>
+    </div>
   </main>
 
-  <footer class="site-footer">
-    <p>© 2025 2Work</p>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 Transporte2Work. Todos los derechos reservados.</p>
+    </div>
   </footer>
 
-  <script src="js/validate.js"></script>
+  <!-- Script base -->
+<script src="js/main.js"></script>
+
+<!-- Dinamismo de sesión de usuario -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const usuario = JSON.parse(localStorage.getItem('usuario'));
+  const navMenu = document.querySelector('.nav-menu');
+  
+  if (usuario && navMenu) {
+    // Eliminar enlaces de login y registro
+    const loginItem = navMenu.querySelector('a[href="login.html"]')?.closest('li');
+    const registroItem = navMenu.querySelector('a[href="registro.html"]')?.closest('li');
+    
+    if (loginItem) loginItem.remove();
+    if (registroItem) registroItem.remove();
+
+    // Añadir saludo + "Mis reservas"
+    const li = document.createElement('li');
+    li.style.display = 'flex';
+    li.style.alignItems = 'center';
+    li.style.gap = '1rem';
+    li.innerHTML = `
+      <span style="color: var(--primary); font-weight: 600;">Hola, ${usuario.nombre}</span>
+      <a href="mis-reservas.html" style="color: var(--secondary); text-decoration: none; font-weight: 600;">
+        <i class="bi bi-ticket"></i> Mis reservas
+      </a>
+    `;
+    navMenu.appendChild(li);
+  }
+});
+</script>
 </body>
 </html>

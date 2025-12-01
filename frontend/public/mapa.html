@@ -1,39 +1,108 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mapa - 2Work</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mapa – Transporte2Work</title>
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <!-- Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <style>#map { height: 420px; max-width: 1100px; margin: 20px auto; border-radius:8px; }</style>
+  <style>
+    #map { height: 500px; border-radius: 16px; margin: 2rem 0; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+  </style>
+  <link rel="stylesheet" href="css/estilos.css" />
 </head>
 <body>
-  <header class="site-header">
+
+  <!-- HEADER -->
+  <header class="header">
     <nav class="navbar">
-      <a class="logo" href="index.html">2Work</a>
+      <div class="logo">T2W</div>
+      <ul class="nav-menu">
+        <li><a href="index.html"><i class="bi bi-house-door"></i> Inicio</a></li>
+        <li><a href="acerca.html"><i class="bi bi-info-circle"></i> Acerca</a></li>
+        <li><a href="servicios.html"><i class="bi bi-gear"></i> Servicios</a></li>
+        <li><a href="mapa.html" class="active"><i class="bi bi-map"></i> Mapa</a></li>
+        <li><a href="contacto.html"><i class="bi bi-envelope"></i> Contáctenos</a></li>
+        <li><a href="registro.html"><i class="bi bi-person-plus"></i> Registro</a></li>
+        <li><a href="login.html"><i class="bi bi-lock"></i> Iniciar sesión</a></li>
+        <li><a href="http://localhost:5000/admin/dashboard.html"><i class="bi bi-shield-lock"></i> Admin</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span><span></span><span></span>
+      </div>
     </nav>
   </header>
 
-  <main class="content">
-    <h1>Ubicación de nuestras oficinas</h1>
-    <div id="map" role="application" aria-label="Mapa con ubicación de 2Work"></div>
-    <p>Marcador aproximado en San José, Costa Rica. Ajustar coordenadas a la ubicación real en el esquema/datos.</p>
+  <!-- HERO -->
+  <section class="hero hero-mapa">
+    <div class="hero-overlay">
+      <h1>Ubicación de nuestra oficina</h1>
+      <p>San José, Costa Rica – Centro corporativo de movilidad empresarial</p>
+    </div>
+  </section>
+
+  <!-- MAPA -->
+  <main class="section">
+    <div class="container">
+      <div id="map" aria-label="Mapa con ubicación de Transporte2Work"></div>
+      <p class="text-center" style="margin-top: 1rem; color: #64748b;">
+        Oficina principal: San José, Costa Rica (coordenadas aproximadas).
+      </p>
+    </div>
   </main>
 
-  <footer class="site-footer">
-    <p>© 2025 2Work</p>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 Transporte2Work. Todos los derechos reservados.</p>
+    </div>
   </footer>
 
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
-    const lat = 9.935;   // reemplazar por coordenadas reales si las tienen
-    const lng = -84.090;
-    const map = L.map('map').setView([lat, lng], 13);
+    const map = L.map('map').setView([9.9281, -84.0907], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
-    L.marker([lat, lng]).addTo(map).bindPopup('Oficinas 2Work').openPopup();
+    L.marker([9.9281, -84.0907])
+      .addTo(map)
+      .bindPopup('<b>Transporte2Work</b><br>Oficina central en San José.')
+      .openPopup();
   </script>
+  <!-- Script base -->
+<script src="js/main.js"></script>
+
+<!-- Dinamismo de sesión de usuario -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const usuario = JSON.parse(localStorage.getItem('usuario'));
+  const navMenu = document.querySelector('.nav-menu');
+  
+  if (usuario && navMenu) {
+    // Eliminar enlaces de login y registro
+    const loginItem = navMenu.querySelector('a[href="login.html"]')?.closest('li');
+    const registroItem = navMenu.querySelector('a[href="registro.html"]')?.closest('li');
+    
+    if (loginItem) loginItem.remove();
+    if (registroItem) registroItem.remove();
+
+    // Añadir saludo + "Mis reservas"
+    const li = document.createElement('li');
+    li.style.display = 'flex';
+    li.style.alignItems = 'center';
+    li.style.gap = '1rem';
+    li.innerHTML = `
+      <span style="color: var(--primary); font-weight: 600;">Hola, ${usuario.nombre}</span>
+      <a href="mis-reservas.html" style="color: var(--secondary); text-decoration: none; font-weight: 600;">
+        <i class="bi bi-ticket"></i> Mis reservas
+      </a>
+    `;
+    navMenu.appendChild(li);
+  }
+});
+</script>
 </body>
 </html>

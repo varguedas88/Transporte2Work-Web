@@ -1,46 +1,133 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Servicios - 2Work</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Servicios – Transporte2Work</title>
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/estilos.css" />
 </head>
 <body>
-  <header class="site-header">
+
+  <!-- HEADER / MENÚ -->
+  <header class="header">
     <nav class="navbar">
-      <a class="logo" href="index.html">2Work</a>
-      <ul class="menu">
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="acerca.html">Acerca</a></li>
-        <li><a class="active" href="servicios.html">Servicios</a></li>
+      <div class="logo">T2W</div>
+      <ul class="nav-menu">
+        <li><a href="index.html"><i class="bi bi-house-door"></i> Inicio</a></li>
+        <li><a href="acerca.html"><i class="bi bi-info-circle"></i> Acerca</a></li>
+        <li><a href="servicios.html" class="active"><i class="bi bi-gear"></i> Servicios</a></li>
+        <li><a href="mapa.html"><i class="bi bi-map"></i> Mapa</a></li>
+        <li><a href="contacto.html"><i class="bi bi-envelope"></i> Contáctenos</a></li>
+        <li><a href="registro.html"><i class="bi bi-person-plus"></i> Registro</a></li>
+        <li><a href="login.html"><i class="bi bi-lock"></i> Iniciar sesión</a></li>
+        <li><a href="http://localhost:5000/admin/dashboard.html"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </nav>
   </header>
 
-  <main class="content">
-    <h1>Nuestros Servicios</h1>
+  <!-- HERO -->
+  <section class="hero hero-servicios">
+    <div class="hero-overlay">
+      <h1>Nuestros Servicios</h1>
+      <p>Soluciones integrales de movilidad diseñadas para empresas modernas y responsables.</p>
+    </div>
+  </section>
 
-    <div class="cards">
-      <article class="card">
-        <h3>Rutas empresariales</h3>
-        <p>Transporte diario casa–oficina–casa con horarios fijos y seguimiento en tiempo real.</p>
-      </article>
+  <!-- SERVICIOS PRINCIPALES -->
+  <main class="section">
+    <div class="container">
+      <div class="servicios-grid">
+        
+        <!-- Servicio 1 -->
+        <div class="servicio-card">
+          <div class="icon"><i class="bi bi-bus-front"></i></div>
+          <h3>Transporte de Colaboradores</h3>
+          <p>
+            Rutas programadas entre zonas residenciales y sedes corporativas, con unidades modernas,
+            cómodas y puntuales. Horarios flexibles según las necesidades de tu empresa.
+          </p>
+        </div>
 
-      <article class="card">
-        <h3>Pases mensuales</h3>
-        <p>Contrata pases mensuales para tus colaboradores con facturación y control de accesos.</p>
-      </article>
+        <!-- Servicio 2 -->
+        <div class="servicio-card">
+          <div class="icon"><i class="bi bi-geo-alt"></i></div>
+          <h3>Monitoreo en Tiempo Real</h3>
+          <p>
+            Acceso a una plataforma digital donde puedes ver la ubicación exacta de cada unidad,
+            estado de la ruta, paradas y tiempo estimado de llegada.
+          </p>
+        </div>
 
-      <article class="card">
-        <h3>Viajes especiales</h3>
-        <p>Transporte para eventos corporativos, capacitaciones y traslados puntuales.</p>
-      </article>
+        <!-- Servicio 3 -->
+        <div class="servicio-card">
+          <div class="icon"><i class="bi bi-graph-up"></i></div>
+          <h3>Reportes y Análisis</h3>
+          <p>
+            Entregamos informes mensuales con datos clave: asistencia, puntualidad, consumo de combustible,
+            emisiones de CO₂ y sugerencias de optimización.
+          </p>
+        </div>
+
+        <!-- Servicio 4 -->
+        <div class="servicio-card">
+          <div class="icon"><i class="bi bi-shield-check"></i></div>
+          <h3>Seguridad Integral</h3>
+          <p>
+            Conductores certificados, cámaras de seguridad en unidades, botón de emergencia y protocolos
+            de contingencia. Tu equipo viaja protegido en todo momento.
+          </p>
+        </div>
+
+      </div>
     </div>
   </main>
 
-  <footer class="site-footer">
-    <p>© 2025 2Work Transport Solutions</p>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 Transporte2Work. Todos los derechos reservados.</p>
+    </div>
   </footer>
+
+  <!-- Script base -->
+<script src="js/main.js"></script>
+
+<!-- Dinamismo de sesión de usuario -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const usuario = JSON.parse(localStorage.getItem('usuario'));
+  const navMenu = document.querySelector('.nav-menu');
+  
+  if (usuario && navMenu) {
+    // Eliminar enlaces de login y registro
+    const loginItem = navMenu.querySelector('a[href="login.html"]')?.closest('li');
+    const registroItem = navMenu.querySelector('a[href="registro.html"]')?.closest('li');
+    
+    if (loginItem) loginItem.remove();
+    if (registroItem) registroItem.remove();
+
+    // Añadir saludo + "Mis reservas"
+    const li = document.createElement('li');
+    li.style.display = 'flex';
+    li.style.alignItems = 'center';
+    li.style.gap = '1rem';
+    li.innerHTML = `
+      <span style="color: var(--primary); font-weight: 600;">Hola, ${usuario.nombre}</span>
+      <a href="mis-reservas.html" style="color: var(--secondary); text-decoration: none; font-weight: 600;">
+        <i class="bi bi-ticket"></i> Mis reservas
+      </a>
+    `;
+    navMenu.appendChild(li);
+  }
+});
+</script>
 </body>
 </html>

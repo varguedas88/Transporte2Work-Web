@@ -1,50 +1,136 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Acerca - 2Work</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acerca de – Transporte2Work</title>
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/estilos.css" />
 </head>
 <body>
-  <header class="site-header">
+
+  <!-- HEADER / MENÚ (igual que index.html) -->
+  <header class="header">
     <nav class="navbar">
-      <a class="logo" href="index.html">2Work</a>
-      <ul class="menu">
-        <li><a href="index.html">Inicio</a></li>
-        <li><a class="active" href="acerca.html">Acerca</a></li>
-        <li><a href="servicios.html">Servicios</a></li>
+      <div class="logo">T2W</div>
+      <ul class="nav-menu">
+        <li><a href="index.html"><i class="bi bi-house-door"></i> Inicio</a></li>
+        <li><a href="acerca.html" class="active"><i class="bi bi-info-circle"></i> Acerca</a></li>
+        <li><a href="servicios.html"><i class="bi bi-gear"></i> Servicios</a></li>
+        <li><a href="mapa.html"><i class="bi bi-map"></i> Mapa</a></li>
+        <li><a href="contacto.html"><i class="bi bi-envelope"></i> Contáctenos</a></li>
+        <li><a href="registro.html"><i class="bi bi-person-plus"></i> Registro</a></li>
+        <li><a href="login.html"><i class="bi bi-lock"></i> Iniciar sesión</a></li>
+        <li><a href="http://localhost:5000/admin/dashboard.html"><i class="bi bi-shield-lock"></i> Admin</a></li>
       </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </nav>
   </header>
 
-  <main class="content" id="main">
-    <h1>Acerca de 2Work</h1>
+  <!-- HERO -->
+  <section class="hero hero-acerca">
+    <div class="hero-overlay">
+      <h1>Acerca de Transporte2Work</h1>
+      <p>Soluciones modernas y seguras de transporte corporativo para tus colaboradores.</p>
+    </div>
+  </section>
 
-    <section aria-labelledby="mision">
-      <h2 id="mision">Misión</h2>
-      <p>Brindar soluciones de transporte corporativo seguras, eficientes y confiables, facilitando la movilidad de los colaboradores entre sus hogares y oficinas mediante tecnología accesible y un servicio de alta calidad.</p>
-    </section>
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="section">
+    <div class="container">
 
-    <section aria-labelledby="vision">
-      <h2 id="vision">Visión</h2>
-      <p>Convertirnos en la empresa líder en transporte corporativo inteligente en Costa Rica, destacándonos por la innovación, sostenibilidad y experiencia del usuario.</p>
-    </section>
+      <!-- SOBRE LA EMPRESA -->
+      <section class="acerca-block">
+        <h2>Sobre nuestra empresa</h2>
+        <p>
+          <strong>Transporte2Work (T2W)</strong> es una empresa especializada en soluciones integrales de movilidad corporativa, diseñadas para optimizar el traslado diario de colaboradores entre sus hogares y centros de trabajo. Fundada en 2015, T2W combina tecnología, seguridad y puntualidad para ofrecer un servicio confiable, eficiente y adaptado a las necesidades de cada organización.
+        </p>
+        <p>
+          Nuestra flota está compuesta por autobuses modernos, equipados con aire acondicionado, asientos ergonómicos, conexión Wi-Fi y sistemas de monitoreo GPS en tiempo real. Todos nuestros conductores cuentan con certificaciones en seguridad vial, primeros auxilios y manejo defensivo, garantizando no solo comodidad, sino también la máxima protección en cada trayecto.
+        </p>
+        <p>
+          Trabajamos bajo un modelo sostenible y responsable, priorizando rutas optimizadas que reducen tiempos de viaje y huella de carbono. Hoy, Transporte2Work es sinónimo de confianza para más de 50 empresas en el país, que eligen nuestro servicio para mejorar la calidad de vida de su talento humano y reforzar su compromiso con la logística inteligente.
+        </p>
+      </section>
 
-    <section aria-labelledby="valores">
-      <h2 id="valores">Valores</h2>
-      <ul>
-        <li>Seguridad</li>
-        <li>Innovación</li>
-        <li>Responsabilidad</li>
-        <li>Compromiso</li>
-        <li>Transparencia</li>
-      </ul>
-    </section>
+      <!-- MISIÓN, VISIÓN Y VALORES -->
+      <section class="mision-vision">
+        <div class="card">
+          <div class="icon"><i class="bi bi-bullseye"></i></div>
+          <h3>Misión</h3>
+          <p>
+            Proveer servicios de transporte confiables y eficientes que mejoren la calidad de vida de los colaboradores y optimicen los recursos de las empresas.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon"><i class="bi bi-eye"></i></div>
+          <h3>Visión</h3>
+          <p>
+            Ser líderes regionales en soluciones de movilidad corporativa mediante tecnología, seguridad y excelencia operativa.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="icon"><i class="bi bi-stars"></i></div>
+          <h3>Valores</h3>
+          <ul>
+            <li>Responsabilidad</li>
+            <li>Seguridad</li>
+            <li>Innovación</li>
+            <li>Compromiso</li>
+            <li>Transparencia</li>
+          </ul>
+        </div>
+      </section>
+
+    </div>
   </main>
 
-  <footer class="site-footer">
-    <p>© 2025 2Work Transport Solutions</p>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 Transporte2Work. Todos los derechos reservados.</p>
+    </div>
   </footer>
+
+  <!-- Script base -->
+<script src="js/main.js"></script>
+
+<!-- Dinamismo de sesión de usuario -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const usuario = JSON.parse(localStorage.getItem('usuario'));
+  const navMenu = document.querySelector('.nav-menu');
+  
+  if (usuario && navMenu) {
+    // Eliminar enlaces de login y registro
+    const loginItem = navMenu.querySelector('a[href="login.html"]')?.closest('li');
+    const registroItem = navMenu.querySelector('a[href="registro.html"]')?.closest('li');
+    
+    if (loginItem) loginItem.remove();
+    if (registroItem) registroItem.remove();
+
+    // Añadir saludo + "Mis reservas"
+    const li = document.createElement('li');
+    li.style.display = 'flex';
+    li.style.alignItems = 'center';
+    li.style.gap = '1rem';
+    li.innerHTML = `
+      <span style="color: var(--primary); font-weight: 600;">Hola, ${usuario.nombre}</span>
+      <a href="mis-reservas.html" style="color: var(--secondary); text-decoration: none; font-weight: 600;">
+        <i class="bi bi-ticket"></i> Mis reservas
+      </a>
+    `;
+    navMenu.appendChild(li);
+  }
+});
+</script>
 </body>
 </html>
